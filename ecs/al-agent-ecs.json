@@ -1,0 +1,44 @@
+{
+  "containerDefinitions": [
+    {
+      "name": "al-agent",
+      "image": "alertlogic/al-agent-container:1.0.0",
+      "cpu": 10,
+      "memory": 256,
+      "essential": true,
+      "privileged": true,
+      "mountPoints": [
+        {
+          "containerPath": "/var/run/docker.sock",
+          "sourceVolume": "docker_sock"
+        },
+        {
+          "containerPath": "/host/proc",
+          "sourceVolume": "proc",
+          "readOnly": true
+        }
+      ],
+      "environment": [
+        {
+          "name": "KEY",
+          "value": "your_registration_key_here"
+        }
+      ]
+    }
+  ],
+  "volumes": [
+    {
+      "host": {
+        "sourcePath": "/var/run/docker.sock"
+      },
+      "name": "docker_sock"
+    },
+    {
+      "host": {
+        "sourcePath": "/proc/"
+      },
+      "name": "proc"
+    }
+  ],
+  "family": "al-agent-task"
+}

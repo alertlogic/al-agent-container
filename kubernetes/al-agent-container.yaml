@@ -1,0 +1,48 @@
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+  labels:
+    app: al-agent-container
+  name: al-agent-container
+spec:
+  template:
+    metadata:
+      labels:
+        app: al-agent-container
+    spec:
+      containers:
+      - name: al-agent-container
+        image: <will be announced at launch>
+        resources:
+          requests:
+            memory: "100Mi"
+            cpu: "1"
+          limits:
+            memory: "500Mi"
+            cpu: "3"
+        env:
+          - name: KEY
+            value: "your_registration_key_here"
+        securityContext:
+          capabilities:
+            add:
+            - SYS_ADMIN
+          privileged: true
+        volumeMounts:
+        - mountPath: /var/run/docker.sock
+          name: docker-sock-volume
+        - mountPath: /host/proc
+          name: docker-proc-volume
+        imagePullPolicy: Always
+      imagePullSecrets:
+        - name: regcred
+      volumes:
+      - name: docker-sock-volume
+        hostPath:
+          path: /var/run/docker.sock
+          type: Socket
+      - name: docker-proc-volume
+        hostPath:
+          path: /proc
+          type: Directory
+      restartPolicy: Always
