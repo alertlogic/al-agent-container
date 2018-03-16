@@ -1,4 +1,4 @@
-## Alert Logic al-agent Container Deployment for ECS
+## Alert Logic al-agent-container Deployment for ECS
 
 #### Deploy Alert Logic Agent Task Definition
 
