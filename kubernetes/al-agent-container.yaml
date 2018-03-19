@@ -46,3 +46,6 @@ spec:
           path: /proc
           type: Directory
       restartPolicy: Always
+      tolerations:
+      - key: node-role.kubernetes.io/master
+        effect: NoSchedule
