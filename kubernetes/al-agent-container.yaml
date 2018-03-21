@@ -12,7 +12,7 @@ spec:
     spec:
       containers:
       - name: al-agent-container
-        image: <will be announced at launch>
+        image: alertlogic/al-agent-container:latest
         resources:
           requests:
             memory: "100Mi"
