@@ -6,7 +6,15 @@
       "cpu": 10,
       "memory": 256,
       "essential": true,
-      "privileged": true,
+      "linuxParameters": {
+        "capabilities": {
+          "add": [
+            "SYS_ADMIN",
+            "NET_ADMIN",
+            "NET_BIND_SERVICE"
+          ]
+        }
+      },
       "mountPoints": [
         {
           "containerPath": "/var/run/docker.sock",
