@@ -12,7 +12,7 @@ spec:
     spec:
       containers:
       - name: al-agent-container
-        image: <will be announced at launch>
+        image: alertlogic/al-agent-container:latest
         resources:
           requests:
             memory: "100Mi"
@@ -27,7 +27,8 @@ spec:
           capabilities:
             add:
             - SYS_ADMIN
-          privileged: true
+            - NET_ADMIN
+            - NET_BIND_SERVICE
         volumeMounts:
         - mountPath: /var/run/docker.sock
           name: docker-sock-volume
