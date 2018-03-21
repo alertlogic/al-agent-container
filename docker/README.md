@@ -9,6 +9,8 @@ Deploying the al-agent-container for IDS on a single Docker host.
 	  --label "app=al-agent-container" \
 	  --net=bridge \
 	  --cap-add=SYS_ADMIN \
+		--cap-add=NET_ADMIN \
+  	--cap-add=NET_BIND_SERVICE \
 	  --mount type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock \
 	  --mount type=bind,source=/proc,target=/host/proc \
 	  --memory-reservation=100m \
