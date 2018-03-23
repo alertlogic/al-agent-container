@@ -35,8 +35,6 @@ spec:
         - mountPath: /host/proc
           name: docker-proc-volume
         imagePullPolicy: Always
-      imagePullSecrets:
-        - name: regcred
       volumes:
       - name: docker-sock-volume
         hostPath:
