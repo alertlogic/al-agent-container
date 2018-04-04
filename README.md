@@ -17,7 +17,7 @@ If you have not done so already, follow the instructions in the following link t
 
 If you have not done so already, follow the instructions in the following link to deploy and configure Threat Manager.  Please note that any reference to the installation of the Threat Manager Agent should be replaced with deploying the al-agent-container as specified within this repository.
 
-https://docs.alertlogic.com/gsg/get-started-threat-manager.htm
+- Getting Started Guide for Threat Manager:  https://docs.alertlogic.com/gsg/get-started-threat-manager.htm
 
 # Image repository
 
