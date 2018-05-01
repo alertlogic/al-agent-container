@@ -4,7 +4,7 @@
       "name": "al-agent",
       "image": "alertlogic/al-agent-container:latest",
       "cpu": 10,
-      "memory": 256,
+      "memory": 500,
       "essential": true,
       "linuxParameters": {
         "capabilities": {
