@@ -6,7 +6,7 @@ If the Alert Logic Cross-Account role is enabled as defined in the Prerequisites
 ### What is the system resource demands for the al-agent-container and will they remain the same or shrink?
 The current specification for the CPU and RAM limits are defined in the example Kubernetes DaemonSet and ECS TaskDefinition.  It is recommended that you use the resource limiting capability based on the defined value; otherwise, you run the risk of the al-agent-container not being bound by the constructs of the limits.  Overtime, we will improve the usage, size and performance capability of the al-agent-container and at the present time the requirements are set as follows:
 
-- CPU Requests:  1
+- CPU Requests:  0.25
 - Memory Requests:  100Mi
 - CPU Limits:  3
 - Memory Limits:  500Mi
