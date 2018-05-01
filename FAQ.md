@@ -10,3 +10,8 @@ The current specification for the CPU and RAM limits are defined in the example 
 - Memory Requests:  100Mi
 - CPU Limits:  3
 - Memory Limits:  500Mi
+
+### How do we stay up to date with the latest al-agent-container releases?
+The al-agent-container is released frequently to DockerHub (https://hub.docker.com/r/alertlogic/al-agent-container/).  The preferred method for staying up to date would be for you to reference the *:latest* version tag in your specification file.
+
+- image: alertlogic/al-agent-container:latest
