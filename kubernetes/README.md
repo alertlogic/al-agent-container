@@ -4,8 +4,9 @@ To deploy the Alert Logic Agent Container on a Kubernetes cluster, you must use 
 
 This directory contains the al-agent-container.yaml file, which is the YAML definition you need to download and edit. This file allows the Kubernetes `DaemonSet` to deploy the agent.
 
-## Before you begin
+## Before You Begin
 - You must have the kubectl command line interface installed and pointed to the cluster to which you want to install the Agent Container.
+- Download the al-agent-container.yaml file and the netpol_agent_metadata.yaml file. 
 - To deploy the Alert Logic Agent Container for Kubernetes, you will need your unique registration key. 
 
 **To find your unique registration key:**
