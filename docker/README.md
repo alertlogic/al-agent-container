@@ -1,8 +1,16 @@
-# Docker al-agent-container Deployment
+# Deploy the Alert Logic Agent Container for Docker
 
-Deploying the al-agent-container for IDS on a single Docker host.
+## Before you begin
+To deploy the Alert Logic Agent Container for Docker, you will need your unique registration key. To find your unique registration key:
 
-1. Use the reference below and modify it as required.
+1. In the Alert Logic console, click the Support Information icon.
+2. Click "Details."
+3. Copy your unique registration key.
+
+## Deploy the Agent Container
+Use the following procedure to deploy the Agent Container to a single Docker host. 
+
+1. Copy the command below, and then paste it into the Docker command line. 
 	```
 	docker run \
 	  --name=al-agent-container \
@@ -21,9 +29,11 @@ Deploying the al-agent-container for IDS on a single Docker host.
 	  -e "KEY=your_registration_key_here" \
 	  alertlogic/al-agent-container:latest
 	```
-2. Update the environment variable _KEY_ with your unique registration key.
-3. Default recommendation is to limit CPU to min of 1 and max of 3. Modify the flag for `--cpus` as necessary.
-	If you are running Docker v1.12 or older, use `--cpu-period="100000"` and `--cpu-quota="300000"`
+2. Replace the value for the environment variable `KEY` with your unique registration key.
+3. Modify the value for `--cpus` as necessary. <br/>
+**Note:** Alert Logic recommends you limit CPU to a minimum of 1 and a maximum of 3. <br/>
+	If you use Docker version 1.12 or older, use `--cpu-period="100000"` and `--cpu-quota="300000"`.
+4. Press "Enter."
 
-	## Update You Local Repository
-	We frequently update the docker image, please make sure your local repository always up to date by running `docker pull alertlogic/al-agent-container:latest`
+	## Update Your Local Repository
+	Alert Logic frequently updates the Docker image. To be sure your local repository is always up to date, run `docker pull alertlogic/al-agent-container:latest` regularly.
