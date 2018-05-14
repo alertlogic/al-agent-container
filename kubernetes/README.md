@@ -1,28 +1,35 @@
-# Kubernetes al-agent-container Deployment
+# Deploy the Alert Logic Agent Container for Kubernetes
 
-Deploying the al-agent-container for IDS on a Kubernetes cluster is accomplished using a _DaemonSet_ in Kubernetes.  A _DaemonSet_ ensures that one al-agent-container is running on each physical node in the cluster.
+To deploy the Alert Logic Agent Container on a Kubernetes cluster, you must use a `DaemonSet`, which ensures that one Agent Container runs on each physical node in the Kubernetes cluster.
 
-Within this folder, you will find _al-agent-container.yaml_.   This is the YAML definition for the Kubernetes _DaemonSet_ to deploy the agent.
+This directory contains the al-agent-container.yaml file, which is the YAML definition you need to download and edit. This file allows the Kubernetes `DaemonSet` to deploy the agent.
 
-To deploy this agent to your cluster:
+## Before You Begin
+- You must have the kubectl command line interface installed and pointed to the cluster to which you want to install the Agent Container.
+- Download the al-agent-container.yaml file and the netpol_agent_metadata.yaml file. 
+- To deploy the Alert Logic Agent Container for Kubernetes, you will need your unique registration key. 
 
-1. Ensure that kubectl is talking to the proper Kubernetes cluster.  ```kubectl get pods```
-2. Edit al-agent-container.yaml and replace "your_registration_key_here" with your unique registration key.
-3. Run the following command: ```kubectl apply -f al-agent-container.yaml```
+**To find your unique registration key:**
+1. In the Alert Logic console, click the Support Information icon.
+2. Click "Details."
+3. Copy your unique registration key.
 
-To verify agent deployment and operation:
+## Deploy the Agent Container 
+**To deploy the Agent Container to your cluster:**
+1. At the command line, type  ```kubectl get pods``` to ensure kubectl communicates with the proper Kubernetes cluster.
+2. Edit the al-agent-container.yaml file to replace "your_registration_key_here" with your unique registration key.
+3. At the command line, type ```kubectl apply -f al-agent-container.yaml```.
 
-1. Confirm that the _DaemonSet_ is defined: ```kubectl describe daemonset al-agent-container```
-2. Confirm that the _Pod_ is defined: ```kubectl get pods```
-3. Pick one of the _al-agent-container_ pods, and run: ```kubectl logs -f <pod name>```
+**To verify agent deployment and operation:**
+1. At the command line, type ```kubectl describe daemonset al-agent-container``` to confirm the DaemonSet definition.
+2. At the command line, type ```kubectl get pods``` to confirm the Agent Container pod is running on every expected host in your cluster.
+3. At the command line, in one of the pods, type ```kubectl logs -f <pod name>``` to confirm the Agent Container appears on the list. 
 
-Network Policy Exception (AWS)
-=========================
-If you are using Calico or Weave as your CNI, your default Network Policy may deny the pods access to the ec2 metadata.
+## Configure the Network Policy Exception in AWS
 
-You need to add exception to allow _al-agent-container_ pods to access the ec2 instance metadata.
+If you use Calico or Weave as a container network interface (CNI), your default network policy could deny the pods access to the AWS EC2 metadata. To avoid this situation, you must add a network policy exception that allows Agent Container pods to access EC2 instance metadata.
 
-To create new Network Policy:
+**To create a new network policy:**
 
-1. Edit netpol-al-agent-container.yaml and replace the namespace to match your deployment namespace.
-2. Run the following command: ```kubectl create -f netpol_agent_metadata.yaml```
+1. Edit the netpol-al-agent-container.yaml file to replace the namespace value with that of your deployment namespace.
+2. At the command line, type ```kubectl create -f netpol_agent_metadata.yaml```.
