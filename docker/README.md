@@ -8,17 +8,17 @@ To deploy the Alert Logic Agent Container for Docker, you will need your unique 
 3. Copy your unique registration key.
 
 ## Deploy the Agent Container
-Use the following procedure to deploy the Agent Container to a single Docker host. 
+Use the following procedure to deploy the Agent Container to a single Docker host.
 
-1. Copy the command below, and then paste it into the Docker command line. 
+1. Copy the command below, and then paste it into the Docker command line.
 	```
 	docker run \
 	  --name=al-agent-container \
 	  --label "app=al-agent-container" \
 	  --net=bridge \
 	  --cap-add=SYS_ADMIN \
-		--cap-add=NET_ADMIN \
-  	--cap-add=NET_BIND_SERVICE \
+	  --cap-add=NET_ADMIN \
+	  --cap-add=NET_BIND_SERVICE \
 	  --mount type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock \
 	  --mount type=bind,source=/proc,target=/host/proc \
 	  --memory-reservation=100m \
