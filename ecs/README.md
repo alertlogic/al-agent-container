@@ -1,8 +1,23 @@
-## Alert Logic al-agent-container Deployment for ECS
+## Deploy the Alert Logic Agent Container for ECS
 
-#### Deploy Alert Logic Agent Task Definition
+## Before You Begin
+To deploy the Alert Logic Agent Container for ECS, you will need your unique registration key. 
 
-1. Update the al-agent-ecs.json with your unique registration key.
+**To find your unique registration key:**
+
+1. In the Alert Logic console, click the Support Information icon.
+2. Click "Details."
+3. Copy your unique registration key.
+
+In addition, be sure you install the AWS command line interface (CLI) and  ensure point it to, and configure it for, the appropriate AWS account. 
+
+## Deploy the Alert Logic Agent Container Task Definition
+To deploy the Agent Container for ECS, you must download the task definition file from this repository, and then edit the file to include your Alert Logic unique registration key.
+
+**To deploy and edit the task definition file:**
+1. Download the al-agent-ecs.json task definition file from this repository.
+
+2. In the task definition file, update the ```value``` variable with your unique registration key.
    ```
    "environment": [
      {
@@ -11,20 +26,20 @@
      }
    ]
    ```
-2. Register your task definition:
+3. In the AWS CLI, type the following command to register your task definition:
    ```
    aws ecs register-task-definition --cli-input-json file://path//to/task-definition/al-agent-ecs.json
    ```
    
-#### Create or Modify your IAM Policy
+## Create or Modify your IAM Policy
+An AWS policy document defines your permissions for the container. You must log into into the AWS console to create a new, or modify an existing, IAM policy.
 
-1. Using the Identity and Access Management (IAM) console, create a new role called alertlogic-agent-agent-ecs.
-2. Select Amazon EC2 Role for EC2 Container Service. On the next screen, do not check any checkboxes, and then click Next Step.
-3. Click Create Role.
-4. Click on the newly created role.
-5. Expand the Inline Policies section. Click the link to create a new inline policy.
-6. Choose Custom Policy and press the button.
-7. For Policy Name enter alertlogic-agent-policy. Copy the following text into the Policy Document:
+**To create an IAM policy:** 
+
+1. In the AWS Console, click **IAM,** located under **Security, Identity & Compliance**.
+2. From the IAM Management Console, click **Policies**, and then click **Create Policy**.
+3. Click the **JSON** tab.
+4. Copy and paste the following text into the JSON window:
    ```
    {
      "Version": "2012-10-17",
@@ -47,12 +62,15 @@
      ]
    }
    ```
-   8. Click Create Policy
+5. Click **Review policy**.
+6. On the Review Policy page, type a **Policy Name** and **Description** for the policy.
+7. Click **Create policy**.
    
-   
-   
-#### Create a startup script for your ECS Instances
+## Create a Startup Script for Your ECS Instances
+You can manually create a startup script to ensure the agent starts when the host starts. 
 
+**To create the startup script:**
+1. Copy the following command:
    ```
    #!/bin/bash
    mset -o pipefail
@@ -74,8 +92,10 @@
    echo "cluster=$cluster az=$az region=$region aws ecs start-task --cluster \
    $cluster --task-definition $task_def --container-instances $instance_arn --region $region" >> /etc/rc.local
    ```
+2. Paste the command into the Linux command line. 
 
-#### Add startup to ECS Cluster instances UserData
+## Add Startup to ECS Cluster Instances using CloudFormation 
+If you use CloudFormation, you can copy and paste the following into a template to ensure the agent starts when the host starts. 
 
    ```
    "UserData": {
