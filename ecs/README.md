@@ -31,19 +31,17 @@ To deploy the Agent Container for ECS, you must download the task definition fil
    aws ecs register-task-definition --cli-input-json file://path//to/task-definition/al-agent-ecs.json
    ```
    
-## Create or Modify your IAM Policy
-An AWS policy document defines your permissions for the container. You must log into into the AWS console to create a new, or modify an existing, IAM policy.
+## Modify your IAM Policy
+Log into the AWS console to ensure the IAM role you use for ECS has the permissions required by the Agent Container. To do so, access the IAM policy document to verify it contains the permissions specified below. 
 
-**To create an IAM policy:** 
+**To view or modify an IAM policy:** 
 
 1. In the AWS Console, click **IAM,** located under **Security, Identity & Compliance**.
-2. From the IAM Management Console, click **Policies**, and then click **Create Policy**.
-3. Click the **JSON** tab.
-4. Copy and paste the following text into the JSON window:
+2. From the IAM Management Console, click **Policies**.
+3. Select the policy attached to the IAM role you use for ECS, and then click **Edit Policy**.
+3. Click **JSON**.
+4. Review the policy document for the following permissions. Copy and paste any of the following permissions the policy document lacks into the JSON window:
    ```
-   {
-     "Version": "2012-10-17",
-     "Statement": [
          {
              "Effect": "Allow",
              "Action": [
@@ -59,12 +57,9 @@ An AWS policy document defines your permissions for the container. You must log 
                  "*"
              ]
          }
-     ]
-   }
-   ```
+	```
 5. Click **Review policy**.
-6. On the Review Policy page, type a **Policy Name** and **Description** for the policy.
-7. Click **Create policy**.
+6. On the Review Policy page, click **Save changes**.
    
 ## Create a Startup Script for Your ECS Instances
 You can manually create a startup script to ensure the agent starts when the host starts. 
