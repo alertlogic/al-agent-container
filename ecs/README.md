@@ -9,7 +9,7 @@ To deploy the Alert Logic Agent Container for ECS, you will need your unique reg
 2. Click "Details."
 3. Copy your unique registration key.
 
-In addition, be sure you install the AWS command line interface (CLI) and  ensure point it to, and configure it for, the appropriate AWS account. 
+In addition, be sure you install the AWS command line interface (CLI) and ensure you point it to, and configure it for, the appropriate AWS account. For more information about the AWS CLI, see https://aws.amazon.com/cli/. 
 
 ## Deploy the Alert Logic Agent Container Task Definition
 To deploy the Agent Container for ECS, you must download the task definition file from this repository, and then edit the file to include your Alert Logic unique registration key.
@@ -26,7 +26,7 @@ To deploy the Agent Container for ECS, you must download the task definition fil
      }
    ]
    ```
-3. In the AWS CLI, type the following command to register your task definition:
+3. In the Linux command line, type the following command to register your task definition:
    ```
    aws ecs register-task-definition --cli-input-json file://path//to/task-definition/al-agent-ecs.json
    ```
