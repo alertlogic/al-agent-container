@@ -16,10 +16,9 @@ This directory contains the al-agent-container.yaml file, which is the YAML defi
 
 ## Deploy the Agent Container 
 **To deploy the Agent Container to your cluster:**
-1. Open the kubectl command line interface.
-2. Edit the al-agent-container.yaml file to replace "your_registration_key_here" with your unique registration key.
-3. In the command line, type  ```kubectl get pods``` to ensure kubectl communicates with the proper Kubernetes cluster.
-4. In the command line, type ```kubectl apply -f al-agent-container.yaml```.
+1. Edit the al-agent-container.yaml file to replace "your_registration_key_here" with your unique registration key.
+2. In the command line, type  ```kubectl get pods``` to ensure kubectl communicates with the proper Kubernetes cluster.
+3. In the command line, type ```kubectl apply -f al-agent-container.yaml```.
 
 **To verify agent deployment and operation:**
 1. In the command line, type ```kubectl describe daemonset al-agent-container``` to confirm the DaemonSet definition.
