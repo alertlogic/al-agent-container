@@ -1,7 +1,7 @@
 # Deploy the Alert Logic Agent Container for Docker
 
 ## Before You Begin
-To deploy the Alert Logic Agent Container for Docker, you will need your unique registration key. To find your unique registration key:
+To deploy the Alert Logic Agent Container for Docker, you need your unique registration key. To find your unique registration key:
 
 1. In the Alert Logic console, click the Support Information icon.
 2. Click "Details."
