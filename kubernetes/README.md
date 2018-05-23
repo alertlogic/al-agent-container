@@ -7,7 +7,7 @@ This directory contains the al-agent-container.yaml file, which is the YAML defi
 ## Before You Begin
 - You must have the kubectl command line interface installed and pointed to the cluster to which you want to install the Agent Container.
 - Download the al-agent-container.yaml file and the netpol_agent_metadata.yaml file. 
-- To deploy the Alert Logic Agent Container for Kubernetes, you will need your unique registration key. 
+- To deploy the Alert Logic Agent Container for Kubernetes, you need your unique registration key. 
 
 **To find your unique registration key:**
 1. In the Alert Logic console, click the Support Information icon.
@@ -16,14 +16,14 @@ This directory contains the al-agent-container.yaml file, which is the YAML defi
 
 ## Deploy the Agent Container 
 **To deploy the Agent Container to your cluster:**
-1. At the command line, type  ```kubectl get pods``` to ensure kubectl communicates with the proper Kubernetes cluster.
-2. Edit the al-agent-container.yaml file to replace "your_registration_key_here" with your unique registration key.
-3. At the command line, type ```kubectl apply -f al-agent-container.yaml```.
+1. Edit the al-agent-container.yaml file to replace "your_registration_key_here" with your unique registration key.
+2. In the command line, type  ```kubectl get pods``` to ensure kubectl communicates with the proper Kubernetes cluster.
+3. In the command line, type ```kubectl apply -f al-agent-container.yaml```.
 
 **To verify agent deployment and operation:**
-1. At the command line, type ```kubectl describe daemonset al-agent-container``` to confirm the DaemonSet definition.
-2. At the command line, type ```kubectl get pods``` to confirm the Agent Container pod is running on every expected host in your cluster.
-3. At the command line, in one of the pods, type ```kubectl logs -f <pod name>``` to confirm the Agent Container appears on the list. 
+1. In the command line, type ```kubectl describe daemonset al-agent-container``` to confirm the DaemonSet definition.
+2. In the command line, type ```kubectl get pods``` to confirm the Agent Container pod is running on every expected host in your cluster.
+3. In the command line, in one of the pods, type ```kubectl logs -f <pod name>``` to confirm the Agent Container appears on the list. 
 
 ## Configure the Network Policy Exception in AWS
 
@@ -32,4 +32,4 @@ If you use Calico or Weave as a container network interface (CNI), your default 
 **To create a new network policy:**
 
 1. Edit the netpol-al-agent-container.yaml file to replace the namespace value with that of your deployment namespace.
-2. At the command line, type ```kubectl create -f netpol_agent_metadata.yaml```.
+2. In the command line, type ```kubectl create -f netpol_agent_metadata.yaml```.
