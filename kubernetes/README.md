@@ -18,13 +18,13 @@ This directory contains the al-agent-container.yaml file, which is the YAML defi
 **To deploy the Agent Container to your cluster:**
 1. Open the kubectl command line interface.
 2. Edit the al-agent-container.yaml file to replace "your_registration_key_here" with your unique registration key.
-3. At the command line, type  ```kubectl get pods``` to ensure kubectl communicates with the proper Kubernetes cluster.
-4. At the command line, type ```kubectl apply -f al-agent-container.yaml```.
+3. In the command line, type  ```kubectl get pods``` to ensure kubectl communicates with the proper Kubernetes cluster.
+4. In the command line, type ```kubectl apply -f al-agent-container.yaml```.
 
 **To verify agent deployment and operation:**
-1. At the command line, type ```kubectl describe daemonset al-agent-container``` to confirm the DaemonSet definition.
-2. At the command line, type ```kubectl get pods``` to confirm the Agent Container pod is running on every expected host in your cluster.
-3. At the command line, in one of the pods, type ```kubectl logs -f <pod name>``` to confirm the Agent Container appears on the list. 
+1. In the command line, type ```kubectl describe daemonset al-agent-container``` to confirm the DaemonSet definition.
+2. In the command line, type ```kubectl get pods``` to confirm the Agent Container pod is running on every expected host in your cluster.
+3. In the command line, in one of the pods, type ```kubectl logs -f <pod name>``` to confirm the Agent Container appears on the list. 
 
 ## Configure the Network Policy Exception in AWS
 
@@ -33,4 +33,4 @@ If you use Calico or Weave as a container network interface (CNI), your default 
 **To create a new network policy:**
 
 1. Edit the netpol-al-agent-container.yaml file to replace the namespace value with that of your deployment namespace.
-2. At the command line, type ```kubectl create -f netpol_agent_metadata.yaml```.
+2. In the command line, type ```kubectl create -f netpol_agent_metadata.yaml```.
