@@ -15,7 +15,7 @@ Use the following procedure to deploy the Agent Container to a single Docker hos
 	docker run \
 	  --name=al-agent-container \
 	  --label "app=al-agent-container" \
-	  --net=bridge \
+	  --net=host \
 	  --privileged \
 	  --mount type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock \
 	  --mount type=bind,source=/proc,target=/host/proc \
