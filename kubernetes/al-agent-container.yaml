@@ -24,11 +24,7 @@ spec:
           - name: KEY
             value: "your_registration_key_here"
         securityContext:
-          capabilities:
-            add:
-            - SYS_ADMIN
-            - NET_ADMIN
-            - NET_BIND_SERVICE
+          privileged: true
         volumeMounts:
         - mountPath: /var/run/docker.sock
           name: docker-sock-volume
