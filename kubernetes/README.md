@@ -32,4 +32,4 @@ If you use Calico or Weave as a container network interface (CNI), your default 
 **To create a new network policy:**
 
 1. Edit the netpol-al-agent-container.yaml file to replace the namespace value with that of your deployment namespace.
-2. In the command line, type ```kubectl create -f netpol_agent_metadata.yaml```.
+2. In the command line, type ```kubectl create -f netpol-al-agent-container.yaml```.
