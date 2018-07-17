@@ -1,4 +1,4 @@
-# Alert Logic Agent Container for Kubernetes, ECS, EB, and Docker
+# Alert Logic Agent Container for Kubernetes, ECS, Elastic Beanstalk, and Docker
 
 This repository contains definitions and instructions to deploy the Alert Logic Agent Container (al-agent-container) to the following platforms:
 
