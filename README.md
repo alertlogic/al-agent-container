@@ -5,7 +5,7 @@ This repository contains definitions and instructions to deploy the Alert Logic 
 - Kubernetes
 - Amazon Elastic Container Service (ECS)
 - Docker
-- Amazon Elastic Beanstalk (EB) multi containers
+- AWS Elastic Beanstalk Multicontainer Docker Platform
 
 # Prerequisites
 
