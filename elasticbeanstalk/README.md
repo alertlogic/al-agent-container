@@ -1,4 +1,4 @@
-## Deploy the Alert Logic Agent Container for Elastic Beanstalk (EB)
+## Deploy the Alert Logic Agent Container for Elastic Beanstalk (EB) Multi Containers
 
 ## Before You Begin
 To deploy the Alert Logic Agent Container for EB, you need your unique registration key.
