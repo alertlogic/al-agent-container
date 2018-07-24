@@ -1,7 +1,7 @@
-## Deploy the Alert Logic Agent Container for Elastic Beanstalk (EB) Multi Containers
+## Deploy the Alert Logic Agent Container for AWS Elastic Beanstalk Multicontainer Environments
 
 ## Before You Begin
-To deploy the Alert Logic Agent Container for EB, you need your unique registration key.
+To deploy the Alert Logic Agent Container for AWS Elastic Beanstalk, you need your unique registration key.
 
 **To find your unique registration key:**
 
@@ -10,12 +10,12 @@ To deploy the Alert Logic Agent Container for EB, you need your unique registrat
 3. Copy your unique registration key.
 
 ## Alert Logic Agent Container Definition
-To deploy the Agent Container for EB, you must:
-1. Include the example container definition file from this repository and merge it to your own EB container configuration file (`Dockerrun.aws.json`). The Agent Container will run as side-car container along with your application container.
-2. Include the example `.ebextensions` configuration and merge it to your own EB application source bundle.
+**To deploy the Agent Container for Elastic Beanstalk:**
+1. Download the example container definition file from this repository and merge it with your own Elastic Beanstalk container configuration file (`Dockerrun.aws.json`). The Agent Container runs as a sidecar container with your application container.
+2. Include the example `.ebextensions` configuration file and merge it with your own Elastic Beanstalk application source bundle.
 
 **To merge and edit the container definition file:**
-1. Download the `Dockerrun.aws.json` task definition file from this [here](Dockerrun.aws.json).
+1. Download the `Dockerrun.aws.json` [task definition file](Dockerrun.aws.json).
 
 2. In the task definition file, update the `value` variable with your unique registration key.
    ```
@@ -26,13 +26,13 @@ To deploy the Agent Container for EB, you must:
      }
    ]
    ```
-3. Merge the content to your existing `Dockerrun.aws.json` from the application source bundle that you plan to deploy in EB
+3. Merge the content with your existing `Dockerrun.aws.json` file from the application source bundle you plan to deploy in Elastic Beanstalk.
 
-For more info about `Dockerrun.aws.json` formatting, please refer to AWS documentation [here](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create_deploy_docker_v2config.html#create_deploy_docker_v2config_dockerrun)
+For more information about `Dockerrun.aws.json` formatting, see the [AWS documentation](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create_deploy_docker_v2config.html#create_deploy_docker_v2config_dockerrun)
 
 **To merge the ebextensions file:**
-1. Download the `99-al-agent-syslog.config` file from [here](.ebextensions/99-al-agent-syslog.config)
+1. Download the [`99-al-agent-syslog.config` file](.ebextensions/99-al-agent-syslog.config).
 
-2. Save the file to `.ebextensions` directory from the application source bundle packages that you plan to deploy in EB
+2. Save the file to the `.ebextensions` directory from the application source bundle packages you plan to deploy in Elastic Beanstalk.
 
-For more info about `ebextensions` formatting, please refer to AWS documentation [here](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/ebextensions.html)
+For more information about `ebextensions` formatting, see the [AWS documentation](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/ebextensions.html).
