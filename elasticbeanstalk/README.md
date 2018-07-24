@@ -11,7 +11,7 @@ To deploy the Alert Logic Agent Container for AWS Elastic Beanstalk, you need yo
 
 ## Alert Logic Agent Container Definition
 **To deploy the Agent Container for Elastic Beanstalk:**
-1. Downaload the example container definition file from this repository and merge it with your own Elastic Beanstalk container configuration file (`Dockerrun.aws.json`). The Agent Container runs as a sidecar container with your application container.
+1. Download the example container definition file from this repository and merge it with your own Elastic Beanstalk container configuration file (`Dockerrun.aws.json`). The Agent Container runs as a sidecar container with your application container.
 2. Include the example `.ebextensions` configuration file and merge it with your own Elastic Beanstalk application source bundle.
 
 **To merge and edit the container definition file:**
