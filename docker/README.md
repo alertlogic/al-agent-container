@@ -7,7 +7,7 @@ To deploy the Alert Logic Agent Container for Docker, you need your unique regis
 2. Click "Details."
 3. Copy your unique registration key.
 
-## Deploy the Agent Container
+## Deploy the Agent Container Using the Standard Docker "Run" Command
 Use the following procedure to deploy the Agent Container to a single Docker host.
 
 1. Copy the command below, and then paste it into the Docker command line.
@@ -32,6 +32,9 @@ Use the following procedure to deploy the Agent Container to a single Docker hos
 **Note:** Alert Logic recommends you limit CPU to a minimum of 1 and a maximum of 3. <br/>
 	If you use Docker version 1.12 or older, use `--cpu-period="100000"` and `--cpu-quota="300000"`.
 4. Press "Enter."
+
+## Deploy the Agent Container in Docker Swarm
+The al-agent-container requires --privileged mode in order to gain escalated access to analyze packets at the network level.  At this time, Docker Swarm does not support creating a service in "Privileged Mode".  There is an outstanding request to add this capability into Docker Swarm; however, until the open issue is resolved the recommended method is to run the al-agent-container as a standalone container on any Docker host participating in the swarm.  The al-agent-container will operate properly and will analyze the network traffic to/from the host it is deployed on; as well as, the container-to-container (or service-to-service) traffic.
 
 ## Update Your Local Repository
 	Alert Logic frequently updates the Docker image. To be sure your local repository is always up to date, run `docker pull alertlogic/al-agent-container:latest` regularly.
