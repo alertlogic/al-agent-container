@@ -1,8 +1,6 @@
 # Alert Logic Agent Container
 
-The Alert Logic Agent Container (al-agent-container) is a self-contained container image than is deployed into your container ecosystem to provide Network Intrusion Detection (Alert Logic Threat Manager) and Container Application Log Collection (Alert Logic Log Manager) services that tie back to Alert Logic product offerings.  This repository highlights supported platforms, provides example deployment documentation, FAQs and links to get you started down the right path for deploying Alert Logic Container Security Solution.
-
-## Heading
+The Alert Logic Agent Container (al-agent-container) is a self-contained container image that is deployed into your container ecosystem to provide Network Intrusion Detection (Alert Logic Threat Manager) and Container Application Log Collection (Alert Logic Log Manager) services that tie back to Alert Logic product offerings.  This repository highlights supported platforms, provides example deployment documentation, FAQs and links to get you started down the right path for deploying Alert Logic Container Security Solution.
 
 # Prerequisites
 
