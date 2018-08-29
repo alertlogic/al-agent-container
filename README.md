@@ -1,11 +1,8 @@
-# Alert Logic Agent Container for Kubernetes, ECS, Elastic Beanstalk, and Docker
+# Alert Logic Agent Container
 
-This repository contains definitions and instructions to deploy the Alert Logic Agent Container (al-agent-container) to the following platforms:
+The Alert Logic Agent Container (al-agent-container) is a self-contained container image than is deployed into your container ecosystem to provide Network Intrusion Detection (Alert Logic Threat Manager) and Container Application Log Collection (Alert Logic Log Manager) services that tie back to Alert Logic product offerings.  This repository highlights supported platforms, provides example deployment documentation, FAQs and links to get you started down the right path for deploying Alert Logic Container Security Solution.
 
-- Kubernetes
-- Amazon Elastic Container Service (ECS)
-- Docker
-- AWS Elastic Beanstalk Multicontainer Docker Platform
+##
 
 # Prerequisites
 
