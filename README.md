@@ -2,6 +2,15 @@
 
 The Alert Logic Agent Container (al-agent-container) is a self-contained container image that is deployed into your container ecosystem to provide Network Intrusion Detection (Alert Logic Threat Manager) and Container Application Log Collection (Alert Logic Log Manager) services that tie back to Alert Logic product offerings.  This repository highlights supported platforms, provides example deployment documentation, FAQs and links to get you started down the right path for deploying Alert Logic Container Security Solution.
 
+# General Requirements
+
+Support for Alert Logic Agent Container Network Intrusion Detection requires the following:
+* The environment **MUST** allow the al-agent-container to run in [privileged mode](https://docs.docker.com/engine/reference/run/#runtime-privilege-and-linux-capabilities)
+* The environment **MUST** allow the [mounting of docker.sock](https://docs.docker.com/storage/volumes/) through the volume mounting capability in Docker
+
+Support for Alert Logic Agent Container Log Management requires the following:
+* Default Docker logging driver enabled where the [default is json-file](https://docs.docker.com/config/containers/logging/configure/)
+
 # Prerequisites
 
 Before you deploy the Alert Logic Agent Container, you must:
