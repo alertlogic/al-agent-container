@@ -10,6 +10,7 @@ Support for Alert Logic Agent Container Log Management requirements the followin
 # Supported Orchestration and Operating Environments
 
 The following orchestration and operating environments are supported:
+
 Amazon Web Services | Microsoft Azure | On-Premise
 ------------------- | --------------- | ----------
 AWS EKS | Azure AKS | Kubernetes
