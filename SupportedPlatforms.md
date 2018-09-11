@@ -1,6 +1,6 @@
 # Supported Orchestration and Operating Environments
 
-The following orchestration and operating environments are supported:
+Alert Logic supports the Alert Logic Agent Container on the following orchestration and operating environments:
 
 Amazon Web Services | Microsoft Azure | On-Premise
 ------------------- | --------------- | ----------
