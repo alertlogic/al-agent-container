@@ -96,7 +96,7 @@ You can manually create a startup script to ensure the agent starts when the hos
    ```
 2. Paste the command into the Linux command line.
 
-### LEGACY ECS Acapability:  Add Startup to ECS Cluster Instances using CloudFormation
+### LEGACY ECS Capability:  Add Startup to ECS Cluster Instances using CloudFormation
 If you use CloudFormation, you can copy and paste the following into a template to ensure the agent starts when the host starts.
 
    ```
