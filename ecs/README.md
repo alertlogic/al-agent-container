@@ -1,7 +1,7 @@
 ## Deploy the Alert Logic Agent Container for ECS
 
 ## Before You Begin
-To deploy the Alert Logic Agent Container for ECS, you need your unique registration key. 
+To deploy the Alert Logic Agent Container for ECS, you need your unique registration key.
 
 **To find your unique registration key:**
 
@@ -9,7 +9,7 @@ To deploy the Alert Logic Agent Container for ECS, you need your unique registra
 2. Click "Details."
 3. Copy your unique registration key.
 
-In addition, be sure you install the AWS command line interface (CLI), and ensure you point it to, and configure it for, the appropriate AWS account. For more information about the AWS CLI, see https://aws.amazon.com/cli/. 
+In addition, be sure you install the AWS command line interface (CLI), and ensure you point it to, and configure it for, the appropriate AWS account. For more information about the AWS CLI, see https://aws.amazon.com/cli/.
 
 ## Deploy the Alert Logic Agent Container Task Definition
 To deploy the Agent Container for ECS, you must download the task definition file from this repository, and then edit the file to include your Alert Logic unique registration key.
@@ -30,11 +30,11 @@ To deploy the Agent Container for ECS, you must download the task definition fil
    ```
    aws ecs register-task-definition --cli-input-json file://path//to/task-definition/al-agent-ecs.json
    ```
-   
-## Modify your IAM Policy
-Log into the AWS console to ensure the IAM role you use for ECS has the permissions required by the Agent Container. To do so, access the IAM policy document to verify it contains the permissions specified below. 
 
-**To view or modify an IAM policy:** 
+## Modify your IAM Policy
+Log into the AWS console to ensure the IAM role you use for ECS has the permissions required by the Agent Container. To do so, access the IAM policy document to verify it contains the permissions specified below.
+
+**To view or modify an IAM policy:**
 
 1. In the AWS Console, click **IAM,** located under **Security, Identity & Compliance**.
 2. From the IAM Management Console, click **Policies**.
@@ -60,9 +60,16 @@ Log into the AWS console to ensure the IAM role you use for ECS has the permissi
 	```
 5. Click **Review policy**.
 6. On the Review Policy page, click **Save changes**.
-   
-## Create a Startup Script for Your ECS Instances
-You can manually create a startup script to ensure the agent starts when the host starts. 
+
+## Enabling automatic start-up of the al-agent-container
+### ECS Daemon Scheduling:  Automatically run the al-agent-container on each ECS instance
+Effective June 12th, 2018 Amazon Elastic Container Service (Amazon ECS) supports daemon scheduling that allows you to automatically run a daemon task on every selected node in your ECS cluster.
+
+- [Amazon ECS Adds Daemon Scheduling](https://aws.amazon.com/about-aws/whats-new/2018/06/amazon-ecs-adds-daemon-scheduling/)
+- [Amazon ECS Documentation for Service Scheduler Concepts](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs_services.html#service_scheduler)
+
+### LEGACY ECS Capability:  Create a Startup Script for Your ECS Instances
+You can manually create a startup script to ensure the agent starts when the host starts.
 
 **To create the startup script:**
 1. Copy the following command:
@@ -87,10 +94,10 @@ You can manually create a startup script to ensure the agent starts when the hos
    echo "cluster=$cluster az=$az region=$region aws ecs start-task --cluster \
    $cluster --task-definition $task_def --container-instances $instance_arn --region $region" >> /etc/rc.local
    ```
-2. Paste the command into the Linux command line. 
+2. Paste the command into the Linux command line.
 
-## Add Startup to ECS Cluster Instances using CloudFormation 
-If you use CloudFormation, you can copy and paste the following into a template to ensure the agent starts when the host starts. 
+### LEGACY ECS Acapability:  Add Startup to ECS Cluster Instances using CloudFormation
+If you use CloudFormation, you can copy and paste the following into a template to ensure the agent starts when the host starts.
 
    ```
    "UserData": {
