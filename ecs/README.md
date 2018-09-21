@@ -68,10 +68,11 @@ Effective June 12th, 2018, Amazon ECS supports daemon scheduling that allows you
 - [Amazon ECS Adds Daemon Scheduling](https://aws.amazon.com/about-aws/whats-new/2018/06/amazon-ecs-adds-daemon-scheduling/)
 - [Amazon ECS Documentation for Service Scheduler Concepts](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs_services.html#service_scheduler)
 
-### Legacy Amazon ECS Capability: Create a Startup Script for Your Amazon ECS Instances
+### Legacy Amazon ECS Scheduling: Create a Startup Script for Your Amazon ECS Instances
 You can manually create a startup script to ensure the agent starts when the host starts.
 
 **To create the startup script:**
+
 1. Copy the following command:
    ```
    #!/bin/bash
@@ -96,8 +97,10 @@ You can manually create a startup script to ensure the agent starts when the hos
    ```
 2. Paste the command into the Linux command line.
 
-### Legacy Amazon ECS Capability:  Add Startup to Amazon ECS Cluster Instances using CloudFormation
-If you use CloudFormation, you can copy and paste the following into a template to ensure the agent starts when the host starts.
+### Legacy Amazon ECS Scheduling: Use AWS CloudFormation to Add Startup to Amazon ECS Cluster Instances
+You can use a CloudFormation template to ensure the agent starts when the host starts.
+
+To create a CloudFormation template, copy and paste the following into a template to ensure the agent starts when the host starts:
 
    ```
    "UserData": {
