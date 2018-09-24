@@ -62,7 +62,7 @@ Log into the AWS console to ensure the IAM role you use for Amazon ECS has the p
 6. On the Review Policy page, click **Save changes**.
 
 ## Enable Automatic Startup of the Alert Logic Agent Container
-### Amazon ECS Daemon Scheduling:  Automatically run the al-agent-container on each Amazon ECS instance
+### Amazon ECS Daemon Scheduling:  Automatically Run the al-agent-container on Each Amazon ECS Instance
 Effective June 12th, 2018, Amazon ECS supports daemon scheduling that allows you to automatically run a daemon task on every selected node in your ECS cluster. For more information, see the following AWS documentation. 
 
 - [Amazon ECS Adds Daemon Scheduling](https://aws.amazon.com/about-aws/whats-new/2018/06/amazon-ecs-adds-daemon-scheduling/)
