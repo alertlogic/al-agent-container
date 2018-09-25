@@ -98,9 +98,9 @@ You can manually create a startup script to ensure the agent starts when the hos
 2. Paste the command into the Linux command line.
 
 ### Legacy Amazon ECS Scheduling: Use AWS CloudFormation to Add Startup to Amazon ECS Cluster Instances
-You can use a CloudFormation template to ensure the agent starts when the host starts.
+You can create an AWS CloudFormation template, or you can edit an existing template, that starts the Agent Container when the host starts. For more information about creating and updating AWS Cloudformation templates, see [Working with AWS CloudFormation Templates](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-guide.html).
 
-To create a CloudFormation template, copy and paste the following into a template to ensure the agent starts when the host starts:
+To create or edit an AWS CloudFormation template that starts the Agent Container upon host startup, copy and paste the following into the template:
 
    ```
    "UserData": {
