@@ -7,7 +7,7 @@ This directory contains the al-agent-container.yaml file, which is the YAML defi
 ## Before You Begin
 - You must have the kubectl command line interface installed and get authentication credentials to interact with the cluster where you want to install the Agent Container.
 - Download the al-agent-container.yaml file.
-- To deploy the Alert Logic Agent Container for Kubernetes, you need your Alert Logic account's unique registration key.
+- To deploy the Alert Logic Agent Container for Kubernetes, you need the unique registration key for your Alert Logic account.
 
 **To find your unique registration key:**
 1. In the Alert Logic console, click the Support Information icon.
@@ -16,14 +16,14 @@ This directory contains the al-agent-container.yaml file, which is the YAML defi
 
 ## Deploy the Agent Container
 **To deploy the Agent Container to your cluster:**
-1. Edit the al-agent-container.yaml file to replace "your_registration_key_here" with your Alert Logic account's unique registration key.
+1. Edit the al-agent-container.yaml file to replace "your_registration_key_here" with the unique registration key for your Alert Logic Account
 2. In the command line, type  ```kubectl get pods``` to ensure kubectl communicates with the proper Kubernetes cluster.
 3. In the command line, type ```kubectl apply -f al-agent-container.yaml```.
 
 **To verify agent deployment and operation:**
 1. In the command line, type ```kubectl describe daemonset al-agent-container``` to confirm the DaemonSet definition.
 2. In the command line, type ```kubectl get pods``` to confirm the Agent Container pod is running on every expected host in your cluster.
-3. In the command line, in one of the pods, type ```kubectl logs -f <agent's_pod_name>``` to confirm the Agent Container was registered successfully. Example of successful logs:
+3. In the command line, type ```kubectl logs -l app=al-agent-container``` to confirm the Agent Container was registered successfully. Example of successful logs:
 
 ```
 Oct 14 02:35:55 2018 al-agent[5]: ALC00083I [alc_config_unregister] clean up registration artefacts
