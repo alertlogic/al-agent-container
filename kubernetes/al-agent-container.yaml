@@ -10,6 +10,7 @@ spec:
       labels:
         app: al-agent-container
     spec:
+      hostNetwork: true
       containers:
       - name: al-agent-container
         image: alertlogic/al-agent-container:latest

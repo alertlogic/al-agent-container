@@ -64,12 +64,3 @@ source_config {
   }
 }
 ```
-
-## Configure the Network Policy Exception in AWS Only
-
-If you use Calico or Weave as a container network interface (CNI), your default network policy could deny the pods access to the AWS EC2 metadata. To avoid this situation, you must add a network policy exception that allows Agent Container pods to access EC2 instance metadata.
-
-**To create a new network policy:**
-
-1. Edit the netpol-al-agent-container.yaml file to replace the namespace value with that of your deployment namespace.
-2. In the command line, type ```kubectl create -f netpol-al-agent-container.yaml```.
