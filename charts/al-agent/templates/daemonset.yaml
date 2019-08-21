@@ -2,29 +2,34 @@ apiVersion: extensions/v1beta1
 kind: DaemonSet
 metadata:
   labels:
+    # This label is kept to be in sync with vanilla yaml files
     app: al-agent-container
-  name: al-agent-container
+{{ include "al-agent.labels" . | indent 4 }}
+  name: {{ include "al-agent.fullname" . }}
 spec:
   template:
     metadata:
       labels:
+        # This one is kept to be in sync with vanilla yaml files
         app: al-agent-container
+        app.kubernetes.io/name: {{ include "al-agent.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
       hostNetwork: true
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
-      - name: al-agent-container
-        # See https://hub.docker.com/r/alertlogic/al-agent-container/tags for available images
-        image: alertlogic/al-agent-container:latest
+      - name: {{ .Chart.Name }}
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+      {{- with .Values.resources }}
         resources:
-          requests:
-            memory: "100Mi"
-            cpu: "0.25"
-          limits:
-            memory: "500Mi"
-            cpu: "3"
+          {{- toYaml . | nindent 10 }}
+      {{- end }}
         env:
           - name: KEY
-            value: "your_registration_key_here"
+            value: "{{ .Values.registration_key }}"
         securityContext:
           privileged: true
         volumeMounts:
@@ -43,9 +48,7 @@ spec:
           path: /proc
           type: Directory
       restartPolicy: Always
+    {{- with .Values.tolerations }}
       tolerations:
-      - key: node-role.kubernetes.io/master
-        effect: NoSchedule
-      # If you want the agent to be deployed on all agents with any posible taints,
-      # use this one instead:
-      # - operator: "Exists"
+        {{- toYaml . | nindent 6 }}
+    {{- end }}
