@@ -14,6 +14,8 @@ This directory contains the al-agent-container.yaml file, which is the YAML defi
 2. Click "Details."
 3. Copy your unique registration key.
 
+**Please Note:** Unique registration keys aren't required for Cloud Defender/SIEMless deployments on AWS and Azure. Please delete the relevant block as required.
+
 ## Deploy the Agent Container
 **To deploy the Agent Container to your cluster:**
 1. Edit the al-agent-container.yaml file to replace "your_registration_key_here" with the unique registration key for your Alert Logic Account
