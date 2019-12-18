@@ -1,0 +1,56 @@
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+  labels:
+    # This label is kept to be in sync with vanilla yaml files
+    app: al-agent-container
+{{ include "al-agent.labels" . | indent 4 }}
+  name: {{ include "al-agent.fullname" . }}
+spec:
+  template:
+    metadata:
+      labels:
+        # This one is kept to be in sync with vanilla yaml files
+        app: al-agent-container
+        app.kubernetes.io/name: {{ include "al-agent.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      hostNetwork: true
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+      - name: {{ .Chart.Name }}
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+      {{- with .Values.resources }}
+        resources:
+          {{- toYaml . | nindent 10 }}
+      {{- end }}
+      {{- if .Values.registration_key }}
+        env:
+          - name: KEY
+            value: "{{ .Values.registration_key }}"
+      {{- end }}
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - mountPath: /var/run/docker.sock
+          name: docker-sock-volume
+        - mountPath: /host/proc
+          name: docker-proc-volume
+        imagePullPolicy: Always
+      volumes:
+      - name: docker-sock-volume
+        hostPath:
+          path: /var/run/docker.sock
+          type: Socket
+      - name: docker-proc-volume
+        hostPath:
+          path: /proc
+          type: Directory
+      restartPolicy: Always
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 6 }}
+    {{- end }}

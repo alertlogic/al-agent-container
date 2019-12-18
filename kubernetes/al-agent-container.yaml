@@ -13,6 +13,7 @@ spec:
       hostNetwork: true
       containers:
       - name: al-agent-container
+        # See https://hub.docker.com/r/alertlogic/al-agent-container/tags for available images
         image: alertlogic/al-agent-container:latest
         resources:
           requests:
@@ -45,3 +46,6 @@ spec:
       tolerations:
       - key: node-role.kubernetes.io/master
         effect: NoSchedule
+      # If you want the agent to be deployed on all agents with any posible taints,
+      # use this one instead:
+      # - operator: "Exists"

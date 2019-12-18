@@ -1,0 +1,28 @@
+image:
+  # See https://hub.docker.com/r/alertlogic/al-agent-container/tags for available images
+  repository: alertlogic/al-agent-container
+  tag: latest
+  pullPolicy: IfNotPresent
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+resources:
+  requests:
+    memory: "100Mi"
+    cpu: "0.25"
+  limits:
+    memory: "500Mi"
+    cpu: "3"
+
+tolerations:
+  - key: node-role.kubernetes.io/master
+    effect: NoSchedule
+  # If you want the agent to be deployed on all agents with any posible taints,
+  # use this one instead:
+  # - operator: "Exists"
+
+# You must override this value when deploying the chart for non-AWS/Azure
+# deployments.
+# registration_key: "your_registration_key_here"
