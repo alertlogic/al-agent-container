@@ -23,5 +23,6 @@ tolerations:
   # use this one instead:
   # - operator: "Exists"
 
-# You must override this value when deploying the chart
-registration_key: "your_registration_key_here"
+# You must override this value when deploying the chart for non-AWS/Azure
+# deployments.
+# registration_key: "your_registration_key_here"

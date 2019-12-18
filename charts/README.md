@@ -5,7 +5,7 @@ This directory contains the al-agent Chart directory, which has the kubernetes m
 ## Before You Begin
 - You must have the kubectl and helm command line interfaces installed and get authentication credentials to interact with the cluster where you want to install the Agent Container.
 - Download the al-agent chart directory.
-- To deploy the Alert Logic Agent Container for Kubernetes, you need the unique registration key for your Alert Logic account.
+- To deploy the Alert Logic Agent Container for Kubernetes, you need the unique registration key for your Alert Logic account (Not required for AWS/Azure deployments).
 
 **To find your unique registration key:**
 1. In the Alert Logic console, click the Support Information icon.
@@ -15,7 +15,7 @@ This directory contains the al-agent Chart directory, which has the kubernetes m
 ## Deploy the Agent Container
 **To deploy the Agent Chart to your cluster:**
 1. In the command line, type ```kubectl get pods``` to ensure kubectl communicates with the proper Kubernetes cluster.
-2. In the command line, type ```helm upgrade --install al-agent al-agent --set registration_key="${your_registration_key}"```.
+2. In the command line, type ```helm upgrade --install al-agent al-agent``` (Provide `--set registration_key="${your_registration_key}"` for non-AWS/Azure deployments).
 
 **To verify agent deployment and operation:**
 1. In the command line, type ```helm status al-agent``` to confirm the Hel chart is deployed.
