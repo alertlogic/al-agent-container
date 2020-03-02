@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   labels:
@@ -7,6 +7,9 @@ metadata:
 {{ include "al-agent.labels" . | indent 4 }}
   name: {{ include "al-agent.fullname" . }}
 spec:
+  selector:
+    matchLabels:
+      app: al-agent-container
   template:
     metadata:
       labels:
