@@ -1,7 +1,8 @@
-## Deploy the Alert Logic Agent Container for Amazon Electronic Container Service (ECS)
+## Deploy the Alert Logic Agent Container for AWS Elastic Container Service (ECS)
 
 ## Before You Begin
-To deploy the Alert Logic Agent Container for Amazon ECS, you need your unique registration key unless the deployment is set up for automatic provisioning.
+- To deploy the Alert Logic Agent Container for Amazon ECS, you need your unique registration key unless the deployment is set up for automatic provisioning.
+- These instructions are for ECS tasks with EC2 launch type. To deploy the Alert Logic Agent Container for ECS tasks with Fargate launch type, see [Fargate README](../fargate/README.md) instead.
 
 **To find your unique registration key (Cloud Defender platform):**
 1. In the Alert Logic console, click the Support Information icon.
