@@ -1,10 +1,9 @@
 ## Deploy the Alert Logic Agent Container for Amazon Electronic Container Service (ECS)
 
 ## Before You Begin
-To deploy the Alert Logic Agent Container for Amazon ECS, you need your unique registration key.
+To deploy the Alert Logic Agent Container for Amazon ECS, you need your unique registration key unless the deployment is set up for automatic provisioning.
 
-**To find your unique registration key:**
-
+**To find your unique registration key (Cloud Defender platform):**
 1. In the Alert Logic console, click the Support Information icon.
 2. Click "Details."
 3. Copy your unique registration key.
@@ -17,7 +16,7 @@ To deploy the Agent Container for Amazon ECS, you must download the task definit
 **To deploy and edit the task definition file:**
 1. Download the al-agent-ecs.json task definition file from this repository.
 
-2. In the task definition file, update the ```value``` variable with your unique registration key.
+2. In the task definition file, update the ```value``` variable with your unique registration key. Note that AWS deployments with valid credentials do not require registration keys, as provisioning is performed based on cloud metadata gathered by the agent and the Alert Logic back end. When using a supported cloud deployment, the `KEY` environment variable should be undefined.
    ```
    "environment": [
      {

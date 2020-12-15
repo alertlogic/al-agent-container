@@ -7,16 +7,22 @@ This directory contains the al-agent-container.yaml file, which is the YAML defi
 ## Before You Begin
 - You must have the kubectl command line interface installed and get authentication credentials to interact with the cluster where you want to install the Agent Container.
 - Download the al-agent-container.yaml file.
-- To deploy the Alert Logic Agent Container for Kubernetes, you need the unique registration key for your Alert Logic account.
+- To deploy the Alert Logic Agent Container for Kubernetes, you need your unique registration key unless the deployment is set up for automatic provisioning.
 
-**To find your unique registration key:**
+**To find your unique registration key (MDR platform -- Data Center deployments only):**
+1. In the Alert Logic console, navigate to Configure > Deployments section.
+2. Click on the Data Center deployment.
+3. Click Configuration Overview > Installation Instructions.
+4. Copy your unique registration key for the appropriate network. The network must have a subnet with an IP range matching the agent's base host IP address(es), otherwise agent provisioning will fail.
+
+**To find your unique registration key (Cloud Defender platform):**
 1. In the Alert Logic console, click the Support Information icon.
 2. Click "Details."
 3. Copy your unique registration key.
 
 ## Deploy the Agent Container
 **To deploy the Agent Container to your cluster:**
-1. Edit the al-agent-container.yaml file to replace "your_registration_key_here" with the unique registration key for your Alert Logic Account
+1. Edit the al-agent-container.yaml file to replace "your_registration_key_here" with the unique registration key. Note that supported cloud deployments with valid credentials do not require registration keys, as provisioning is performed based on cloud metadata gathered by the agent and the Alert Logic back end. When using a supported cloud deployment, the `KEY` environment variable should be undefined.
 2. In the command line, type  ```kubectl get pods``` to ensure kubectl communicates with the proper Kubernetes cluster.
 3. In the command line, type ```kubectl apply -f al-agent-container.yaml```.
 
