@@ -1,4 +1,4 @@
-# Deploy the Alert Logic Agent Container for Kubernetes using Helm 2
+# Deploy the Alert Logic Agent Container for Kubernetes using Helm
 
 This directory contains the al-agent Chart directory, which has the kubernetes manifests to deploy.
 
