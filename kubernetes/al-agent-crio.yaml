@@ -31,7 +31,7 @@ spec:
         securityContext:
           privileged: true
         volumeMounts:
-        - mountPath: /var/run/docker.sock
+        - mountPath: /run/crio/crio.sock
           name: container-sock-volume
         - mountPath: /host/proc
           name: docker-proc-volume
@@ -39,7 +39,7 @@ spec:
       volumes:
       - name: container-sock-volume
         hostPath:
-          path: /var/run/docker.sock
+          path: /run/crio/crio.sock
           type: Socket
       - name: docker-proc-volume
         hostPath:

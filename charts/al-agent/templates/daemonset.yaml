@@ -38,15 +38,15 @@ spec:
         securityContext:
           privileged: true
         volumeMounts:
-        - mountPath: /var/run/docker.sock
-          name: docker-sock-volume
+        - mountPath: "{{ .Values.mounts.containerSocket }}"
+          name: container-sock-volume
         - mountPath: /host/proc
           name: docker-proc-volume
         imagePullPolicy: Always
       volumes:
-      - name: docker-sock-volume
+      - name: container-sock-volume
         hostPath:
-          path: /var/run/docker.sock
+          path: "{{ .Values.mounts.containerSocket }}"
           type: Socket
       - name: docker-proc-volume
         hostPath:

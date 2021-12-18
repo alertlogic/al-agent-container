@@ -2,11 +2,16 @@
 
 To deploy the Alert Logic Agent Container on a Kubernetes cluster, you must use a `DaemonSet`, which ensures that one Agent Container runs on each physical node in the Kubernetes cluster.
 
-This directory contains the al-agent-container.yaml file, which is the YAML definition you need to download and edit. This file allows the Kubernetes `DaemonSet` to deploy the agent.
+This directory contains the following files, which are the YAML definitions you need to download and edit. These files allow the Kubernetes `DaemonSet` to deploy the agent.
+- `al-agent-container.yaml`: for Kubernetes clusters running Docker (mounts ```/var/run/docker.sock```)
+- `al-agent-containerd.yaml`: for Kubernetes clusters running containerd (mounts ```/run/containerd/containerd.sock```)
+- `al-agent-crio.yaml`: for Kubernetes/OpenShift clusters running CRI-O (mounts ```/run/crio/crio.sock```)
+
+When upgrading the cluster to a different container engine, the version targeting the current container engine needs to de deleted (`kubectl delete -f <YAML>`), followed by deployment of the version targeting the new engine (see below). It is recommended to do this after the upgrade.
 
 ## Before You Begin
 - You must have the kubectl command line interface installed and get authentication credentials to interact with the cluster where you want to install the Agent Container.
-- Download the al-agent-container.yaml file.
+- Download the YAML file appropriate for your cluster.
 - To deploy the Alert Logic Agent Container for Kubernetes, you need your unique registration key unless the deployment is set up for automatic provisioning.
 
 **To find your unique registration key (MDR platform -- Data Center deployments only):**
@@ -22,7 +27,7 @@ This directory contains the al-agent-container.yaml file, which is the YAML defi
 
 ## Deploy the Agent Container
 **To deploy the Agent Container to your cluster:**
-1. Edit the al-agent-container.yaml file to replace "your_registration_key_here" with the unique registration key. Note that supported cloud deployments with valid credentials do not require registration keys, as provisioning is performed based on cloud metadata gathered by the agent and the Alert Logic back end. When using a supported cloud deployment, the `KEY` environment variable should be undefined.
+1. Edit the chosen YAML file to replace "your_registration_key_here" with the unique registration key. Note that supported cloud deployments with valid credentials do not require registration keys, as provisioning is performed based on cloud metadata gathered by the agent and the Alert Logic back end. When using a supported cloud deployment, the `KEY` environment variable should be undefined.
 2. In the command line, type  ```kubectl get pods``` to ensure kubectl communicates with the proper Kubernetes cluster.
 3. In the command line, type ```kubectl apply -f al-agent-container.yaml```.
 
