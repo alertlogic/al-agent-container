@@ -15,40 +15,40 @@ spec:
     spec:
       hostNetwork: true
       containers:
-      - name: al-agent-container
-        # See https://hub.docker.com/r/alertlogic/al-agent-container/tags for available images
-        image: alertlogic/al-agent-container:latest
-        resources:
-          requests:
-            memory: "100Mi"
-            cpu: "0.25"
-          limits:
-            memory: "500Mi"
-            cpu: "3"
-        env:
-          - name: KEY
-            value: "your_registration_key_here"
-        securityContext:
-          privileged: true
-        volumeMounts:
-        - mountPath: /run/containerd/containerd.sock
-          name: container-sock-volume
-        - mountPath: /host/proc
-          name: docker-proc-volume
-        imagePullPolicy: Always
+        - name: al-agent-container
+          # See https://hub.docker.com/r/alertlogic/al-agent-container/tags for available images
+          image: alertlogic/al-agent-container:latest
+          resources:
+            requests:
+              memory: "100Mi"
+              cpu: "0.25"
+            limits:
+              memory: "500Mi"
+              cpu: "3"
+          env:
+            - name: KEY
+              value: "your_registration_key_here"
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - mountPath: /run/containerd/containerd.sock
+              name: container-sock-volume
+            - mountPath: /host/proc
+              name: docker-proc-volume
+          imagePullPolicy: Always
       volumes:
-      - name: container-sock-volume
-        hostPath:
-          path: /run/containerd/containerd.sock
-          type: Socket
-      - name: docker-proc-volume
-        hostPath:
-          path: /proc
-          type: Directory
+        - name: container-sock-volume
+          hostPath:
+            path: /run/containerd/containerd.sock
+            type: Socket
+        - name: docker-proc-volume
+          hostPath:
+            path: /proc
+            type: Directory
       restartPolicy: Always
       tolerations:
-      - key: node-role.kubernetes.io/master
-        effect: NoSchedule
+        - key: node-role.kubernetes.io/master
+          effect: NoSchedule
       # If you want the agent to be deployed on all agents with any posible taints,
       # use this one instead:
       # - operator: "Exists"
