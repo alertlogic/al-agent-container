@@ -23,6 +23,12 @@ tolerations:
   # use this one instead:
   # - operator: "Exists"
 
+mounts:
+  # Specify the socket name to mount for container engine integration
+  # /run/containerd/containerd.sock for containerd
+  # /run/crio/crio.sock for CRI-O
+  containerSocket: /var/run/docker.sock
+
 # You must override this value when deploying the chart for non-AWS/Azure
 # deployments.
 # registration_key: "your_registration_key_here"
