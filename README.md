@@ -1,80 +1,38 @@
-## Deploy the Alert Logic Agent Container for AWS Fargate
-You can deploy the Alert Logic Agent Container in Amazon Elastic Container Service (ECS) environments that run Amazon Web Services (AWS) Fargate.
+# Alert Logic Agent Container
 
-Use these instructions for environments running Amazon ECS tasks with the Fargate launch type. To deploy the Alert Logic Agent Container for Amazon ECS tasks with the EC2 launch type, see [ECS README](../ecs/README.md) instead. 
+The Alert Logic Agent Container (al-agent-container) is a self-contained container image you deploy into your containerized workloads to provide network intrusion detection and container application log collection services by Alert Logic Threat Manager and Alert Logic Log Manager. 
 
-## AWS Fargate Support
-To protect environments that use Fargate with Amazon ECS, the required method is to deploy the Alert Logic Agent Container as a sidecar in each Fargate ECS task. With this method, the Alert Logic agent can still access the network interfaces of that task. Alert Logic collects network traffic and syslog messages from a specific task without violating the integrity of other customer environments in the AWS Fargate cluster.
+This repository lists supported platforms, provides deployment documentation (including examples), FAQs, and links that help you deploy the Alert Logic Agent Container. For more information, see [www.alertlogic.com](https://www.alertlogic.com).
 
-For Alert Logic to fully integrate with a container environment, the Docker socket must be mounted through the volume mounting capability in Docker, which the Fargate environment does not allow. For this reason, Alert Logic can protect containers on Fargate workloads but does not discover other containers running on the host, capture traffic from their virtual network interfaces, or collect the native container logs stdout and stderr.
+# Prerequisites
 
-## Agent Container for Fargate for Managed Detection and Response Customers
+Before you deploy the Alert Logic Agent Container, you must:
+- Deploy and activate the Threat Manager appliance.
+- Create a deployment in the Alert Logic console.
 
-### Deploy Agent Container 
+The documentation in this repository helps you deploy the Threat Manager agent as a container. The documentation covers only the deployment of the agent. For more information about creating a deployment in the Alert Logic console, see the following:
 
-Complete the following steps to protect your AWS Fargate deployments:
+- [Get Started with the Alert Logic Cloud Defender Suite](https://docs.alertlogic.com/gsg/get-started-cloud-defender.htm)
+- [How to Create and Manage Deployments](https://docs.alertlogic.com/userGuides/deployments.htm)
 
-1. Modify your AWS Fargate task definition.
+If you have not done so already, follow the instructions in the link below to deploy and configure Threat Manager. 
 
-You must run the Alert Logic Agent Container as a sidecar to each Fargate ECS task. Using the JSON tab, append the following container definition to the ```containerDefinitions``` array within your existing Fargate ECS task definition:
-   ```
-   {
-     "name": "al-agent",
-     "image": "alertlogic/al-agent-container:latest",
-   }
-   ```
-Alternatively, another option is to 'Create a New Revision' using the Builder and 'Add Container' with the above image.
+- [Get Started with Alert Logic Threat Manager](https://docs.alertlogic.com/gsg/get-started-threat-manager.htm)
 
-2. Update the Service to use the latest Task Definition revision. 
+**Note:** As you read "Get Started with Alert Logic Threat Manager," replace references to the installation of the Threat Manager Agent with deployment of the Alert Logic Agent Container, as specified in this repository.
 
-The service tasks will now be updated and the agent will show in the Health section of the Alert Logic portal in due course. 
+# Requirements
 
+**Support for Alert Logic Agent Container Network Intrusion Detection requires the following:**
+- The environment must allow the al-agent-container to run in [privileged mode](https://docs.docker.com/engine/reference/run/#runtime-privilege-and-linux-capabilities).
+- The environment must allow the [mounting of ```docker.sock```](https://docs.docker.com/storage/volumes/), ```containerd.sock```, or ```crio.sock``` through the volume mounting capability in your container engine.
 
-## Agent Container for Fargate for Cloud Defender Customers
+Environments that do not permit the above (e.g. [AWS Fargate](fargate/README.md)) usually permit running Alert Logic Agent Container as a sidecar in each task or pod instead, where the agent still has access to that task or pod's network interfaces. Environments that permit privileged mode but do not expose ```docker.sock```, ```containerd.sock```, or ```crio.sock``` are not fully supported. While Alert Logic Agent Container can still be installed in privileged host network mode to capture syslog and network traffic on base host network interfaces, it does not discover other containers running on the host, capture traffic from their virtual network interfaces, or collect their native (stdout/stderr) logs.
 
-### Before You Begin
-For the Cloud Defender platform, you need your unique registration key to deploy the Alert Logic Agent Container for AWS Fargate. 
+**Support for Alert Logic Agent Container Log Management requires the following:**
+- Enable the default Docker logging driver, where the [default is ```json-file```](https://docs.docker.com/config/containers/logging/configure/).
+- The environment must allow the [mounting of ```docker.sock```](https://docs.docker.com/storage/volumes/), ```containerd.sock```, or ```crio.sock``` through the volume mounting capability in your container engine.
 
-**To find your unique registration key:**
-1. In the Alert Logic console, click the Support Information icon.
-2. Within the 'Details' section, Copy your unique registration key.
+# Image repository
 
-### Deploy Agent Container 
-
-Complete the following steps to protect your AWS Fargate deployments:
-
-1. Modify your AWS Fargate task definition.
-
-You must run the Alert Logic Agent Container as a sidecar to each Fargate ECS task. Using the JSON tab, append the following container definition to the ```containerDefinitions``` array within your existing Fargate ECS task definition:
-   ```
-   {
-     "name": "al-agent",
-     "image": "alertlogic/al-agent-container:latest",
-     "environment": [
-       {
-         "name": "KEY",
-         "value": "your_registration_key_here"
-       }
-     ]
-   }
-   ```
-In the task definition, update the ```value``` of the ```KEY``` environment variable with your unique registration key. 
-
-Alternatively, another option is to 'Create a New Revision' using the Builder and 'Add Container' with the above image. You must then add the environment variable ```KEY=<your_registration_key_here>```.
-
-2. Update the Service to use the latest Task Definition revision. 
-
-The service tasks will now be updated and the agent will show in the Health section of the Alert Logic portal in due course.
-
-## Agent Container for Fargate using AWS CLI
-
-1. Update your existing task definition JSON file as per the MDR or Cloud Defender instructions above and use the following command in the AWS CLI:
-   ```
-   aws ecs register-task-definition --cli-input-json file://path//to/task-definition.json
-   ```
-
-2. Use your preferred method to deploy the updated task definition. For example, you can enter the following command in the AWS CLI and replace the `{service_using_task_definition}` and `{task_definition}` variables with valid values:
-   ```
-   aws ecs update-service --service {service_using_task_definition} --task-definition {task_definition}
-   ```
-For reference, see https://docs.aws.amazon.com/cli/latest/reference/ecs/update-service.html. 
+Link : https://hub.docker.com/r/alertlogic/al-agent-container/
