@@ -64,7 +64,7 @@ Alternatively, another option is to 'Create a New Revision' using the Builder an
 
 2. Update the Service to use the latest Task Definition revision. 
 
-The service tasks will now be updated and the agent will show in the Health section of the Alert Logic portal in due course.
+The service tasks will now be updated and the agent will show in the Protected Hosts section of the Alert Logic portal in due course.
 
 ## Agent Container for Fargate using AWS CLI
 
