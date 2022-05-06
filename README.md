@@ -12,12 +12,12 @@ Before you deploy the Alert Logic Agent Container, you must:
 
 The documentation in this repository helps you deploy the Threat Manager agent as a container. The documentation covers only the deployment of the agent. For more information about creating a deployment in the Alert Logic console, see the following:
 
-- [Get Started with the Alert Logic Cloud Defender Suite](https://docs.alertlogic.com/gsg/get-started-cloud-defender.htm)
-- [How to Create and Manage Deployments](https://docs.alertlogic.com/userGuides/deployments.htm)
+- [Get Started with the Alert Logic Cloud Defender Suite](https://legacy.docs.alertlogic.com/gsg/get-started-cloud-defender.htm)
+- [How to Create and Manage Deployments](https://legacy.docs.alertlogic.com/userGuides/deployments.htm)
 
 If you have not done so already, follow the instructions in the link below to deploy and configure Threat Manager. 
 
-- [Get Started with Alert Logic Threat Manager](https://docs.alertlogic.com/gsg/get-started-threat-manager.htm)
+- [Get Started with Alert Logic Threat Manager](https://legacy.docs.alertlogic.com/gsg/get-started-threat-manager.htm)
 
 **Note:** As you read "Get Started with Alert Logic Threat Manager," replace references to the installation of the Threat Manager Agent with deployment of the Alert Logic Agent Container, as specified in this repository.
 
