@@ -2,22 +2,22 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   labels:
-    app: al-agent-container
-  name: al-agent-container
+    app: {{ include "alertlogic.name" . }}-container
+  name: {{ include "alertlogic.name" . }}-container
 spec:
   selector:
     matchLabels:
-      app: al-agent-container
+      app: {{ include "alertlogic.name" . }}-container
   template:
     metadata:
       labels:
-        app: al-agent-container
+        app: {{ include "alertlogic.name" . }}-container
     spec:
       hostNetwork: true
       containers:
-        - name: al-agent-container
+        - name: {{ include "alertlogic.name" . }}-container
           # See https://hub.docker.com/r/alertlogic/al-agent-container/tags for available images
-          image: alertlogic/al-agent-container:latest
+          image: {{ .Values.alertlogic.image }}:{{ .Values.alertlogic.tag }}
           resources:
             requests:
               memory: "100Mi"
@@ -27,20 +27,36 @@ spec:
               cpu: "3"
           env:
             - name: KEY
-              value: "your_registration_key_here"
+              value: "{{ .Values.alertlogic.registration_key }}"
           securityContext:
             privileged: true
           volumeMounts:
+            {{ if eq .Values.alertlogic.type "containerd" }}
+            - mountPath: /run/containerd/containerd.sock
+              name: container-sock-volume
+            {{ else if eq .Values.alertlogic.type "docker" }}
             - mountPath: /var/run/docker.sock
               name: container-sock-volume
+            {{ else if eq .Values.alertlogic.type "crio" }}
+            - mountPath: /run/crio/crio.sock
+              name: container-sock-volume
+            {{ end }}
             - mountPath: /host/proc
               name: docker-proc-volume
           imagePullPolicy: Always
       volumes:
         - name: container-sock-volume
           hostPath:
+          {{ if eq .Values.alertlogic.type "containerd" }}
+            path: /run/containerd/containerd.sock
+            type: Socket
+          {{ else if eq .Values.alertlogic.type "docker" }}
             path: /var/run/docker.sock
             type: Socket
+          {{ else if eq .Values.alertlogic.type "crio" }}
+            path: /run/crio/crio.sock
+            type: Socket
+          {{ end }}
         - name: docker-proc-volume
           hostPath:
             path: /proc

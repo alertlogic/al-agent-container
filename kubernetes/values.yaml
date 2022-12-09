@@ -1,0 +1,6 @@
+
+alertlogic:
+  image: "alertlogic/al-agent-container"
+  tag: latest
+  registration_key: "your_registration_key_here"
+  type: containerd #crio, containerd, Docker

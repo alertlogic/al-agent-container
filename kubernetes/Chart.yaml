@@ -1,0 +1,9 @@
+apiVersion: v2
+name: al-agent
+description: A Helm chart for alert logic agent
+type: application
+version: 1.0.0
+appVersion: "1.0.0"
+
+sources:
+  - https://dev.azure.com/shipbob/ShipBob/_git/Labelery
