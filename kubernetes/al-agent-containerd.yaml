@@ -40,6 +40,8 @@ spec:
         - name: container-sock-volume
           hostPath:
             path: /run/containerd/containerd.sock
+            # For Bottlerocket OS with K8s versions 1.22 and below ONLY
+            # path: /run/dockershim.sock
             type: Socket
         - name: docker-proc-volume
           hostPath:

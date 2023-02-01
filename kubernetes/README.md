@@ -5,9 +5,17 @@ To deploy the Alert Logic Agent Container on a Kubernetes cluster, you must use 
 This directory contains the following files, which are the YAML definitions you need to download and edit. These files allow the Kubernetes `DaemonSet` to deploy the agent.
 - `al-agent-container.yaml`: for Kubernetes clusters running Docker (mounts ```/var/run/docker.sock```)
 - `al-agent-containerd.yaml`: for Kubernetes clusters running containerd (mounts ```/run/containerd/containerd.sock```)
+  - For Bottlerocket OS with Kubernetes versions 1.22 and below **only**, edit the manifest to mount ```/run/dockershim.sock``` as ```/run/containerd/containerd.sock```
+  - For Bottlerocket OS with Kubernetes versions 1.23 and above, do not modify the containerd socket path
 - `al-agent-crio.yaml`: for Kubernetes/OpenShift clusters running CRI-O (mounts ```/run/crio/crio.sock```)
 
+Interaction with Docker via `/run/dockershim.sock` is **not supported** since container metadata retrieved that way lacks critical fields. Therefore Alert Logic Agent Container running on Docker hosts must mount `/var/run/docker.sock` (as in `al-agent-container.yaml`). However, Bottlerocket OS places its containerd socket at `/run/dockershim.sock` with older Kubernetes versions for compatibility (see changes [#796](https://github.com/bottlerocket-os/bottlerocket/pull/796), [#2140](https://github.com/bottlerocket-os/bottlerocket/pull/2140)).
+
 When upgrading the cluster to a different container engine, the version targeting the current container engine needs to de deleted (`kubectl delete -f <YAML>`), followed by deployment of the version targeting the new engine (see below). It is recommended to do this after the upgrade.
+
+## Helm Chart
+
+If you prefer to use [Helm](https://helm.sh) to deploy Alert Logic Agent Container, see the [charts](../charts) directory instead.
 
 ## Before You Begin
 - You must have the kubectl command line interface installed and get authentication credentials to interact with the cluster where you want to install the Agent Container.

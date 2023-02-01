@@ -21,10 +21,18 @@ This directory contains the al-agent Chart directory, which has the kubernetes m
 ## Deploy the Agent Container
 **To deploy the Agent Chart to your cluster:**
 1. In the command line, type ```kubectl get pods``` to ensure kubectl communicates with the proper Kubernetes cluster.
-2. In the command line, type ```helm upgrade --install al-agent al-agent``` (Provide `--set registration_key="${your_registration_key}"` for non-AWS/Azure deployments. Note that supported cloud deployments with valid credentials do not require registration keys, as provisioning is performed based on cloud metadata gathered by the agent and the Alert Logic back end.)
+2. In the command line, type ```helm upgrade --install al-agent al-agent```
+   - Provide `--set registration_key="${your_registration_key}"` for non-AWS/Azure deployments. Note that supported cloud deployments with valid credentials do not require registration keys, as provisioning is performed based on cloud metadata gathered by the agent and the Alert Logic back end.
+   - Provide `--set mounts.containerSocket=...` if your Kubernetes cluster's container engine is not Docker:
+     - `--set mounts.containerSocket="/run/containerd/containerd.sock"` for Kubernetes clusters running containerd
+       - For Bottlerocket OS with Kubernetes versions 1.22 and below **only**, also provide `--set mounts.containerSocketFrom="/run/dockershim.sock"`
+       - For Bottlerocket OS with Kubernetes versions 1.23 and above, do not modify `mounts.containerSocketFrom`
+     - `--set mounts.containerSocket="/run/crio/crio.sock"` for Kubernetes/OpenShift clusters running CRI-O
+
+     Interaction with Docker via `/run/dockershim.sock` is **not supported** since container metadata retrieved that way lacks critical fields. Therefore Alert Logic Agent Container running on Docker hosts must mount `/var/run/docker.sock` (the default value for `mounts.containerSocket`). However, Bottlerocket OS places its containerd socket at `/run/dockershim.sock` with older Kubernetes versions for compatibility (see changes [#796](https://github.com/bottlerocket-os/bottlerocket/pull/796), [#2140](https://github.com/bottlerocket-os/bottlerocket/pull/2140)).
 
 **To verify agent deployment and operation:**
-1. In the command line, type ```helm status al-agent``` to confirm the Hel chart is deployed.
+1. In the command line, type ```helm status al-agent``` to confirm the Helm chart is deployed.
 2. In the command line, type ```kubectl get pods``` to confirm the Agent Container pod is running on every expected host in your cluster.
 3. In the command line, type ```kubectl logs -l app=al-agent-container``` to confirm the Agent Container was registered successfully. Example of successful logs:
 

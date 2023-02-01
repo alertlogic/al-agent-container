@@ -25,9 +25,15 @@ tolerations:
 
 mounts:
   # Specify the socket name to mount for container engine integration
-  # /run/containerd/containerd.sock for containerd
-  # /run/crio/crio.sock for CRI-O
+  # For Docker:
   containerSocket: /var/run/docker.sock
+  # For containerd:
+  #containerSocket: /run/containerd/containerd.sock
+  # For CRI-O:
+  #containerSocket: /run/crio/crio.sock
+  # For Bottlerocket OS with K8s versions 1.22 and below ONLY:
+  #containerSocket: /run/containerd/containerd.sock
+  #containerSocketFrom: /run/dockershim.sock
 
 # You must override this value when deploying the chart for non-AWS/Azure
 # deployments.

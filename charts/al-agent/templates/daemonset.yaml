@@ -24,7 +24,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       containers:
-      - name: {{ .Chart.Name }}
+      - name: {{ .Chart.Name }}-container
         image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
       {{- with .Values.resources }}
         resources:
@@ -46,7 +46,7 @@ spec:
       volumes:
       - name: container-sock-volume
         hostPath:
-          path: "{{ .Values.mounts.containerSocket }}"
+          path: "{{ default .Values.mounts.containerSocket .Values.mounts.containerSocketFrom }}"
           type: Socket
       - name: docker-proc-volume
         hostPath:
