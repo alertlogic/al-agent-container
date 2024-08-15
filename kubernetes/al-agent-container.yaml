@@ -17,6 +17,7 @@ spec:
       containers:
         - name: al-agent-container
           # See https://hub.docker.com/r/alertlogic/al-agent-container/tags for available images
+          # Alternative: public.ecr.aws/alertlogic/al-agent-container:latest
           image: alertlogic/al-agent-container:latest
           resources:
             requests:

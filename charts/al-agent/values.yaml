@@ -1,5 +1,6 @@
 image:
   # See https://hub.docker.com/r/alertlogic/al-agent-container/tags for available images
+  # Alternative: public.ecr.aws/alertlogic/al-agent-container
   repository: alertlogic/al-agent-container
   tag: latest
   pullPolicy: IfNotPresent

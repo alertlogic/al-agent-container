@@ -2,7 +2,7 @@
   "containerDefinitions": [
     {
       "name": "al-agent",
-      "image": "alertlogic/al-agent-container:latest",
+      "image": "public.ecr.aws/alertlogic/al-agent-container:latest",
       "cpu": 10,
       "memory": 500,
       "essential": true,

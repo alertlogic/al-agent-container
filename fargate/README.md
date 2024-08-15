@@ -10,7 +10,7 @@ For Alert Logic to fully integrate with a container environment, the Docker sock
 
 ## Agent Container for Fargate for Managed Detection and Response Customers
 
-### Deploy Agent Container 
+### <a name="deploy_agent"></a>Deploy Agent Container
 
 Complete the following steps to protect your AWS Fargate deployments:
 
@@ -20,11 +20,11 @@ You must run the Alert Logic Agent Container and a supported [Fluent Bit](https:
    ```
    {
      "name": "al-agent",
-     "image": "alertlogic/al-agent-container:latest",
+     "image": "public.ecr.aws/alertlogic/al-agent-container:latest"
    },
    {
      "name": "log_router",
-     "image": "fluent/fluent-bit:latest",
+     "image": "public.ecr.aws/aws-observability/aws-for-fluent-bit:stable",
      "firelensConfiguration": {"type": "fluentbit"},
      "volumesFrom": [{"sourceContainer": "al-agent"}],
      "dependsOn": [{
@@ -95,7 +95,7 @@ You must run the Alert Logic Agent Container and a supported [Fluent Bit](https:
    ```
    {
      "name": "al-agent",
-     "image": "alertlogic/al-agent-container:latest",
+     "image": "public.ecr.aws/alertlogic/al-agent-container:latest",
      "environment": [
        {
          "name": "KEY",
@@ -105,7 +105,7 @@ You must run the Alert Logic Agent Container and a supported [Fluent Bit](https:
    },
    {
      "name": "log_router",
-     "image": "fluent/fluent-bit:latest",
+     "image": "public.ecr.aws/aws-observability/aws-for-fluent-bit:stable",
      "firelensConfiguration": {"type": "fluentbit"},
      "volumesFrom": [{"sourceContainer": "al-agent"}],
      "dependsOn": [{
@@ -187,9 +187,13 @@ This section provides more technical detail about AWS FireLens log routing for F
 
 ### Choosing a Fluent Bit Container Image
 
-If no AWS log outputs (`firehose`, `cloudwatch`, or `kinesis`) are used in addition to the Alert Logic Agent Container, the recommended Fluent Bit image is the upstream `fluent/fluent-bit:latest` (as used in the recommended configuration) or `cr.fluentbit.io/fluent/fluent-bit:latest` (using Fluent Bit's own container repository instead of Docker Hub). This tends to be minimal in terms of memory usage, space usage, and download size.
+[AWS for Fluent Bit](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/firelens-using-fluentbit.html) is the recommended Fluent Bit image. Alternatively, the upstream `fluent/fluent-bit:latest` or `cr.fluentbit.io/fluent/fluent-bit:latest` tend to be minimal in terms of memory usage, space usage, and download size. However, these repositories are subject to aggressive Docker Hub pull rate limits, making them unsuitable for larger-scale deployments unless a paid Docker subscription is used.
 
-If the above AWS log outputs are needed, or if ECR is preferred to Docker Hub, the [AWS for Fluent Bit](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/firelens-using-fluentbit.html) image can be used instead, for example:
+### Routing Logs to Multiple Destinations
+
+If no AWS log outputs (`firehose`, `cloudwatch`, or `kinesis`) are used in addition to the Alert Logic Agent Container, use the recommended Fluent Bit container configuration as described in [Deploy Agent Container](#deploy_agent). This avoids loading unnecessary Fluent Bit output plug-ins.
+
+If the above AWS log outputs are needed, the [AWS for Fluent Bit](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/firelens-using-fluentbit.html) image can be configured as follows instead:
 
    ```
    {
@@ -206,9 +210,11 @@ If the above AWS log outputs are needed, or if ECR is preferred to Docker Hub, t
        "-s", "Scheduler.Cap", "60",
        "-i", "Mem_Buf_Limit", "50M",
        "--",
+
        "-e", "/fluent-bit/firehose.so",
        "-e", "/fluent-bit/cloudwatch.so",
        "-e", "/fluent-bit/kinesis.so",
+
        "-F", "record_modifier",
        "-m", "*",
        "-p", "Record=pid 1",

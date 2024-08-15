@@ -57,5 +57,14 @@ However, future versions of the Alert Logic Agent might require additional capab
 
 # Image Repositories
 
-- https://hub.docker.com/r/alertlogic/al-agent-container
-- https://gallery.ecr.aws/alertlogic/al-agent-container
+- Docker Hub: https://hub.docker.com/r/alertlogic/al-agent-container
+- Amazon ECR Public: https://gallery.ecr.aws/alertlogic/al-agent-container
+
+# Pull Rate Limits
+
+Using the ECR repository may be preferred over Docker Hub for large-scale workloads. Depending on workload location and external IP configuration, ECR may afford higher pull rate limits (and shorter cool-down periods) unless a paid Docker subscription is used. In both cases, authenticated pulls receive higher rate limits than unauthenticated ones. For the current pull rate limits, refer to:
+
+- Docker Hub: https://docs.docker.com/docker-hub/download-rate-limit/
+- Amazon ECR Public: https://docs.aws.amazon.com/AmazonECR/latest/public/public-service-quotas.html
+
+If the rate limits afforded by either service are not sufficient for your needs, consider mirroring Alert Logic Agent Container repository into your own private repository using [ECR Pull-through Cache](https://docs.aws.amazon.com/AmazonECR/latest/userguide/pull-through-cache.html) or a similar service, then using the mirror to deploy your workloads.
