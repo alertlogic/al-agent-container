@@ -69,7 +69,7 @@ Alternatively, another option is to 'Create a New Revision' using the Builder an
 
 It is recommended you set up security groups to disallow external or VPC traffic (including Alert Logic vulnerability scanners) to TCP or UDP port 1514 of the task (which is used by the Alert Logic Agent Container to listen for incoming logs). Otherwise, bogus logs might be generated.
 
-For more information on configuring log routing with Fluent Bit, see [Advanced Log Routing](#log_routing).
+For more information on configuring log routing with Fluent Bit, see [Advanced Log Routing](#log_routing). For testing and troubleshooting your configuration, see [Troubleshooting Task Failures](#troubleshooting).
 
 2. Update the Service to use the latest Task Definition revision. 
 
@@ -152,7 +152,7 @@ Alternatively, another option is to 'Create a New Revision' using the Builder an
 
 It is recommended you set up security groups to disallow external or VPC traffic (including Alert Logic vulnerability scanners) to TCP or UDP port 1514 of the task (which is used by the Alert Logic Agent Container to listen for incoming logs). Otherwise, bogus logs might be generated.
 
-For more information on configuring log routing with Fluent Bit, see [Advanced Log Routing](#log_routing).
+For more information on configuring log routing with Fluent Bit, see [Advanced Log Routing](#log_routing). For testing and troubleshooting your configuration, see [Troubleshooting Task Failures](#troubleshooting).
 
 2. Update the Service to use the latest Task Definition revision. 
 
@@ -364,7 +364,9 @@ The launcher accepts the following command-line arguments:
 
 Currently the launcher supports only classic (non-YAML) Fluent Bit configuration format, and does not process any `@INCLUDE` or parser files. It does not modify the configuration in place by default, since the FireLens-generated configuration is normally on a read-only mount.
 
-## Troubleshooting Task Failures
+## <a name="troubleshooting"></a>Troubleshooting Task Failures
+
+While you test your updated task definition, you may want to configure the `al-agent` and `log_router` containers with the `essential` flag set to `false`. This will prevent unintended termination of these containers from terminating your ECS tasks and all their application containers. Once your updated task definition is tested and stable, this flag should be reverted to `true` (its default value).
 
 If the `al-agent` or `log_router` sidecars are terminating unexpectedly, you can configure them to forward their own console output to CloudWatch to determine the root cause. Please include these logs if you contact our technical support.
    ```
@@ -374,6 +376,7 @@ If the `al-agent` or `log_router` sidecars are terminating unexpectedly, you can
      {
        "name": "al-agent",
        ...
+       "essential": false,
        "logConfiguration": {
          "logDriver": "awslogs",
          "options": {
@@ -387,6 +390,7 @@ If the `al-agent` or `log_router` sidecars are terminating unexpectedly, you can
      {
        "name": "log_router",
        ...
+       "essential": false,
        "logConfiguration": {
          "logDriver": "awslogs",
          "options": {
