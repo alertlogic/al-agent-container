@@ -18,7 +18,15 @@ resources:
     cpu: "3"
 
 tolerations:
+  # User-managed K8s master nodes
   - key: node-role.kubernetes.io/master
+    effect: NoSchedule
+  - key: node-role.kubernetes.io/control-plane
+    effect: NoSchedule
+  # System node pools in EKS, AKS & GKE
+  - key: CriticalAddonsOnly
+    effect: NoSchedule
+  - key: components.gke.io/gke-managed-components
     effect: NoSchedule
   # If you want the agent to be deployed on all agents with any posible taints,
   # use this one instead:
