@@ -433,3 +433,38 @@ Common reasons for `al-agent` and `log_router` crashes include:
   - Using [unsupported characters](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudwatch-log-group-log-stream-naming-for-cloudtrail.html) in `log_group_name`, `log_stream_prefix`, or `log_stream_name` if CloudWatch output is used
   - Failure to load the required external output plug-ins (`-e`) if CloudWatch, Kinesis, or Firehose output is used
   - Failure to specify a `taskRoleArn` with [adequate CloudWatch access](#cloudwatch_access) if CloudWatch output is used
+
+### AWS Batch Deployments
+
+Fargate job definitions for AWS Batch may not yet support all required parameters available in ECS (specifically `entryPoint` and `volumesFrom`). To work around this problem, Fluent Bit in the `log_router` container can be started directly, forgoing the `Scheduler.Cap` and `Mem_Buf_Limit` tweaks which are only available via [Fluent Bit launcher](#fluent_launch):
+   ```
+   {
+     "name": "log_router",
+     "image": "public.ecr.aws/aws-observability/aws-for-fluent-bit:stable",
+     "firelensConfiguration": {"type": "fluentbit"},
+     "dependsOn": [{
+       "containerName": "al-agent",
+       "condition": "START"
+     }],
+     "command": [
+       "/fluent-bit/bin/fluent-bit",
+       "-e", "/fluent-bit/cloudwatch.so",
+       "-c", "/fluent-bit/etc/fluent-bit.conf",
+       "-F", "record_modifier",
+       "-m", "*",
+       "-p", "Record=pid 1",
+       "-o", "syslog",
+       "-m", "*",
+       "-p", "Mode=tcp",
+       "-p", "Host=127.0.0.1",
+       "-p", "Port=1514",
+       "-p", "Retry_Limit=False",
+       "-p", "Syslog_Format=rfc3164",
+       "-p", "Syslog_Maxsize=786432",
+       "-p", "Syslog_Hostname_Key=container_id",
+       "-p", "Syslog_Appname_Key=container_name",
+       "-p", "Syslog_Procid_Key=pid",
+       "-p", "Syslog_Message_Key=log"
+     ]
+   },
+   ```
