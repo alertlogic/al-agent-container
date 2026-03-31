@@ -17,12 +17,17 @@ To deploy the Agent Container for Amazon ECS, you must download the task definit
 **To deploy and edit the task definition file:**
 1. Download the al-agent-ecs.json task definition file from this repository.
 
-2. In the task definition file, update the ```value``` variable with your unique registration key. Note that AWS deployments with valid credentials do not require registration keys, as provisioning is performed based on cloud metadata gathered by the agent and the Alert Logic back end. When using a supported cloud deployment, the `KEY` environment variable should be undefined.
+2. In the task definition file, update the value of the `KEY` variable with your unique registration key. Note that AWS deployments with valid credentials do not require registration keys, as provisioning is performed based on cloud metadata gathered by the agent and the Alert Logic back end. When using a supported cloud deployment, the `KEY` environment variable should be undefined.
+   If required, also add the `CONFIG` environment variable to pass parameters to `/etc/init.d/al-agent configure` before provisioning and starting the agent, e.g. to use a single point of egress:
    ```
    "environment": [
      {
        "name": "KEY",
        "value": "your_registration_key_here"
+     },
+     {
+       "name": "CONFIG",
+       "value": "--host alertlogic.appliance.addr --direct-transport 0"
      }
    ]
    ```

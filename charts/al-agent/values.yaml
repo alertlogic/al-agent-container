@@ -39,3 +39,7 @@ mounts:
 # You must override this value when deploying the chart for non-AWS/Azure
 # deployments.
 # registration_key: "your_registration_key_here"
+
+# Use this value to pass parameters to "/etc/init.d/al-agent configure" before
+# provisioning and starting the agent, e.g. to use a single point of egress
+# agent_config: "--host alertlogic.appliance.addr --direct-transport 0"

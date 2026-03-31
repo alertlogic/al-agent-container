@@ -30,10 +30,16 @@ spec:
         resources:
           {{- toYaml . | nindent 10 }}
       {{- end }}
-      {{- if .Values.registration_key }}
+      {{- if or .Values.registration_key .Values.agent_config }}
         env:
+        {{- if .Values.registration_key }}
           - name: KEY
             value: "{{ .Values.registration_key }}"
+        {{- end }}
+        {{- if .Values.agent_config }}
+          - name: CONFIG
+            value: "{{ .Values.agent_config }}"
+        {{- end }}
       {{- end }}
         securityContext:
           privileged: true

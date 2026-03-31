@@ -29,6 +29,10 @@ spec:
           env:
             - name: KEY
               value: "your_registration_key_here"
+            # Use the CONFIG variable to pass parameters to "/etc/init.d/al-agent configure" before
+            # provisioning and starting the agent, e.g. to use a single point of egress
+            # - name: CONFIG
+            #   value: "--host alertlogic.appliance.addr --direct-transport 0"
           securityContext:
             privileged: true
           volumeMounts:

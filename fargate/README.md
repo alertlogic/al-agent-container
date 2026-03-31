@@ -171,6 +171,22 @@ The service tasks will now be updated and the agent will show in the Protected H
    ```
 For reference, see https://docs.aws.amazon.com/cli/latest/reference/ecs/update-service.html. 
 
+## Manual Alert Logic Agent Configuration
+
+If required, add the `CONFIG` environment variable to the `al-agent` container definition to pass parameters to `/etc/init.d/al-agent configure` before provisioning and starting the agent, e.g. to use a single point of egress:
+   ```
+   {
+     "name": "al-agent",
+     "image": "public.ecr.aws/alertlogic/al-agent-container:latest",
+     "environment": [
+       {
+         "name": "CONFIG",
+         "value": "--host alertlogic.appliance.addr --direct-transport 0"
+       }
+     ]
+   },
+   ```
+
 ## <a name="log_routing"></a> Advanced Log Routing
 
 This section provides more technical detail about AWS FireLens log routing for Fargate ECS tasks using Fluent Bit. You can use this if you need to set up additional log outputs for your Fargate tasks (besides Alert Logic Agent Container), or perform any other Fluent Bit changes.

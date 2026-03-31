@@ -16,12 +16,17 @@ To deploy the Alert Logic Agent Container for AWS Elastic Beanstalk, you need yo
 **To merge and edit the container definition file:**
 1. Download the `Dockerrun.aws.json` [task definition file](Dockerrun.aws.json).
 
-2. In the task definition file, update the `value` variable with your unique registration key. Note that AWS deployments with valid credentials do not require registration keys, as provisioning is performed based on cloud metadata gathered by the agent and the Alert Logic back end. When using a supported cloud deployment, the `KEY` environment variable should be undefined.
+2. In the task definition file, update the value of the `KEY` variable with your unique registration key. Note that AWS deployments with valid credentials do not require registration keys, as provisioning is performed based on cloud metadata gathered by the agent and the Alert Logic back end. When using a supported cloud deployment, the `KEY` environment variable should be undefined.
+   If required, also add the `CONFIG` environment variable to pass parameters to `/etc/init.d/al-agent configure` before provisioning and starting the agent, e.g. to use a single point of egress:
    ```
    "environment": [
      {
        "name": "KEY",
        "value": "your_registration_key_here"
+     },
+     {
+       "name": "CONFIG",
+       "value": "--host alertlogic.appliance.addr --direct-transport 0"
      }
    ]
    ```

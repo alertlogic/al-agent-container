@@ -35,10 +35,11 @@ Use the following procedure to deploy the Agent Container to a single Docker hos
 	  alertlogic/al-agent-container:latest
 	```
 2. Replace the value for the environment variable `KEY` with your unique registration key. Note that supported cloud deployments with valid credentials do not require registration keys, as provisioning is performed based on cloud metadata gathered by the agent and the Alert Logic back end. When using a supported cloud deployment, the `KEY` environment variable should be undefined.
-3. Modify the value for `--cpus` as necessary. <br/>
+3. If required, add the `CONFIG` variable (e.g. `-e "CONFIG=--host alertlogic.appliance.addr --direct-transport 0"`) to pass parameters to `/etc/init.d/al-agent configure` before provisioning and starting the agent, e.g. to use a single point of egress.
+4. Modify the value for `--cpus` as necessary. <br/>
 **Note:** Alert Logic recommends you limit CPU to a minimum of 1 and a maximum of 3. <br/>
 	If you use Docker version 1.12 or older, use `--cpu-period="100000"` and `--cpu-quota="300000"`.
-4. Press "Enter."
+5. Press "Enter."
 
 ## Deploy the Agent Container in Docker Swarm
 The al-agent-container requires --privileged mode in order to gain escalated access to analyze packets at the network level.  At this time, Docker Swarm does not support creating a service in "Privileged Mode".  There is an outstanding request to add this capability into Docker Swarm; however, until the open issue is resolved the recommended method is to run the al-agent-container as a standalone container on any Docker host participating in the swarm.  The al-agent-container will operate properly and will analyze the network traffic to/from the host it is deployed on; as well as, the container-to-container (or service-to-service) traffic.
